@@ -10,7 +10,7 @@
 		</section>
 		<section class="login__formulary">
 			<figure class="login__formulary__figure">
-				<img src="@/assets/+money.svg" class="login__formulary__figure__img" />
+				<img src="@/assets/+money.svg" class="login__formulary__figure__logo" />
 			</figure>
 			<v-form class="login__formulary__form">
 				<v-row class="d-flex justify-center">
@@ -23,7 +23,8 @@
 							readonly
 							hide-details
 							prepend-inner-icon="mail_outline"
-						></v-text-field>
+							color="#508991"
+						/>
 					</v-col>
 				</v-row>
 				<v-row class="d-flex justify-center">
@@ -35,11 +36,12 @@
 							clearable
 							readonly
 							hide-details
+							color="#508991"
 							prepend-inner-icon="mdi-lock"
 							:append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
 							:type="show ? 'text' : 'password'"
 							@click:append="show = !show"
-						></v-text-field>
+						/>
 					</v-col>
 				</v-row>
 				<v-row class="d-flex justify-end mr-13">
