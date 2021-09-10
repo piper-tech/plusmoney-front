@@ -11,9 +11,101 @@
 				/>
 			</figure>
 		</section>
-		<section class="register__formulary"></section>
+		<section class="register__formulary">
+			<figure class="register__formulary__figure">
+				<img
+					src="@/assets/+money.svg"
+					class="register__formulary__figure__logo"
+				/>
+			</figure>
+			<v-form class="register__formulary__form">
+				<v-row class="d-flex justify-center">
+					<v-col md="10" sm="3">
+						<v-text-field
+							v-model="form.fullName"
+							label="Nome completo"
+							outlined
+							clearable
+							readonly
+							hide-details
+							prepend-inner-icon="person"
+							color="#508991"
+						/>
+					</v-col>
+				</v-row>
+				<v-row class="d-flex justify-center">
+					<v-col md="10" sm="3">
+						<v-text-field
+							v-model="form.email"
+							label="Email"
+							outlined
+							clearable
+							readonly
+							hide-details
+							prepend-inner-icon="mail_outline"
+							color="#508991"
+						/>
+					</v-col>
+				</v-row>
+				<v-row class="d-flex justify-center">
+					<v-col md="10">
+						<v-text-field
+							v-model="form.password"
+							label="Senha"
+							outlined
+							clearable
+							readonly
+							hide-details
+							color="#508991"
+							prepend-inner-icon="mdi-lock"
+							:append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+							:type="show ? 'text' : 'password'"
+							@click:append="show = !show"
+						/>
+					</v-col>
+				</v-row>
+				<v-row class="d-flex justify-center">
+					<v-col md="10">
+						<v-text-field
+							v-model="form.confirmPassword"
+							label="Confirmar senha"
+							outlined
+							clearable
+							readonly
+							hide-details
+							color="#508991"
+							prepend-inner-icon="mdi-lock"
+							:append-icon="showConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+							:type="showConfirm ? 'text' : 'password'"
+							@click:append="showConfirm = !showConfirm"
+						/>
+					</v-col>
+				</v-row>
+				<v-row class="d-flex justify-end mr-12 mt-5">
+					<v-btn color="#508991" large outlined class="button"
+						>Fazer login</v-btn
+					>
+					<v-btn color="#508991" large class="button ml-5">Cadastrar</v-btn>
+				</v-row>
+			</v-form>
+		</section>
 	</div>
 </template>
+
+<script>
+export default {
+	data: () => ({
+		show: false,
+		showConfirm: false,
+		form: {
+			fullName: '',
+			email: '',
+			password: '',
+			confirmPasswrod: '',
+		},
+	}),
+}
+</script>
 
 <style lang="scss" scoped>
 .register {
@@ -43,6 +135,32 @@
 			margin-bottom: 200px;
 			&__img {
 				width: 100%;
+			}
+		}
+	}
+	&__formulary {
+		width: 50%;
+		display: flex;
+		height: 80%;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		&__figure {
+			width: 400px;
+			height: 100px;
+		}
+		&__form {
+			width: 80%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			height: 210px;
+			padding-top: 15px;
+			.button {
+				color: #fff;
+				width: 180px;
+				text-transform: capitalize;
+				font-size: 16px;
 			}
 		}
 	}
