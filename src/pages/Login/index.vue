@@ -71,6 +71,7 @@ export default {
 			password: '',
 		},
 	}),
+	transition: 'slide-fade',
 }
 </script>
 
