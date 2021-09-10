@@ -26,7 +26,6 @@
 							label="Nome completo"
 							outlined
 							clearable
-							readonly
 							hide-details
 							prepend-inner-icon="person"
 							color="#508991"
@@ -40,7 +39,6 @@
 							label="Email"
 							outlined
 							clearable
-							readonly
 							hide-details
 							prepend-inner-icon="mail_outline"
 							color="#508991"
@@ -54,7 +52,6 @@
 							label="Senha"
 							outlined
 							clearable
-							readonly
 							hide-details
 							color="#508991"
 							prepend-inner-icon="mdi-lock"
@@ -71,7 +68,6 @@
 							label="Confirmar senha"
 							outlined
 							clearable
-							readonly
 							hide-details
 							color="#508991"
 							prepend-inner-icon="mdi-lock"
