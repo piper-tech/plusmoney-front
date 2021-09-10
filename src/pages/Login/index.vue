@@ -64,6 +64,7 @@
 
 <script>
 export default {
+	transition: 'slide-fade',
 	data: () => ({
 		show: false,
 		form: {

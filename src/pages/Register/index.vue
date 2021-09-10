@@ -82,7 +82,7 @@
 					</v-col>
 				</v-row>
 				<v-row class="d-flex justify-end mr-12 mt-5">
-					<v-btn color="#508991" large outlined class="button"
+					<v-btn color="#508991" large outlined class="button" to="/login"
 						>Fazer login</v-btn
 					>
 					<v-btn color="#508991" large class="button ml-5">Cadastrar</v-btn>
@@ -94,6 +94,7 @@
 
 <script>
 export default {
+	transition: 'slide-fade',
 	data: () => ({
 		show: false,
 		showConfirm: false,
