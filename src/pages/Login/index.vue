@@ -64,7 +64,6 @@
 
 <script>
 export default {
-	transition: 'slide-fade',
 	data: () => ({
 		show: false,
 		form: {
@@ -72,6 +71,7 @@ export default {
 			password: '',
 		},
 	}),
+	transition: 'slide-fade',
 }
 </script>
 
