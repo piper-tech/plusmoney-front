@@ -1,6 +1,6 @@
 <template>
 	<v-app>
-		<v-main>
+		<v-main id="app">
 			<router-view />
 		</v-main>
 	</v-app>
@@ -15,3 +15,9 @@ export default {
 	}),
 }
 </script>
+
+<style lang="scss" scoped>
+#app {
+	height: 100%;
+}
+</style>
