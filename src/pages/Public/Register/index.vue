@@ -110,7 +110,8 @@ export default {
 	height: 100%;
 	&__wrapper {
 		clip-path: polygon(0 0, 100% 0, 83% 100%, 0% 100%);
-		background: url('../../assets/ellipse.svg') no-repeat bottom left, #508991;
+		background: url('../../../assets/ellipse.svg') no-repeat bottom left,
+			#508991;
 		background-size: 84%;
 		width: 50%;
 		display: flex;
