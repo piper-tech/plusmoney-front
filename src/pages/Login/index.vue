@@ -16,7 +16,7 @@
 				<v-row class="d-flex justify-center">
 					<v-col md="10" sm="3">
 						<v-text-field
-							v-model="email"
+							v-model="form.email"
 							label="Email"
 							outlined
 							clearable
@@ -30,7 +30,7 @@
 				<v-row class="d-flex justify-center">
 					<v-col md="10">
 						<v-text-field
-							v-model="senha"
+							v-model="form.password"
 							label="Senha"
 							outlined
 							clearable
@@ -82,8 +82,7 @@ export default {
 	overflow-y: hidden;
 	&__wrapper {
 		clip-path: polygon(0 0, 100% 0, 83% 100%, 0% 100%);
-		background: url('../../../assets/ellipse.svg') no-repeat bottom left,
-			#508991;
+		background: url('../../assets/ellipse.svg') no-repeat bottom left, #508991;
 		background-size: 84%;
 		width: 50%;
 		display: flex;

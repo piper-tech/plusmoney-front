@@ -12,3 +12,5 @@ const withBaseURLContext = () =>
 const HTTPClient = axios.create({
 	baseURL: withBaseURLContext(),
 })
+
+export default HTTPClient

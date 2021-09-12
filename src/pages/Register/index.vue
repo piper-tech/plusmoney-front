@@ -18,11 +18,11 @@
 					class="register__formulary__figure__logo"
 				/>
 			</figure>
-			<v-form class="register__formulary__form">
+			<v-form class="register__formulary__form" @submit.prevent="registerUser">
 				<v-row class="d-flex justify-center">
 					<v-col md="10" sm="3">
 						<v-text-field
-							v-model="form.fullName"
+							v-model="form.name"
 							label="Nome completo"
 							outlined
 							clearable
@@ -81,7 +81,9 @@
 					<v-btn color="#508991" large outlined class="button" to="/login"
 						>Fazer login</v-btn
 					>
-					<v-btn color="#508991" large class="button ml-5">Cadastrar</v-btn>
+					<v-btn type="submit" color="#508991" large class="button ml-5"
+						>Cadastrar</v-btn
+					>
 				</v-row>
 			</v-form>
 		</section>
@@ -95,12 +97,22 @@ export default {
 		show: false,
 		showConfirm: false,
 		form: {
-			fullName: '',
+			name: '',
 			email: '',
 			password: '',
 			confirmPasswrod: '',
 		},
 	}),
+	methods: {
+		async registerUser() {
+			const obj = {
+				name: this.form.name,
+				email: this.form.email,
+				password: this.form.password,
+			}
+			await this.$store.dispatch('registerUser', obj)
+		},
+	},
 }
 </script>
 
@@ -110,8 +122,7 @@ export default {
 	height: 100%;
 	&__wrapper {
 		clip-path: polygon(0 0, 100% 0, 83% 100%, 0% 100%);
-		background: url('../../../assets/ellipse.svg') no-repeat bottom left,
-			#508991;
+		background: url('../../assets/ellipse.svg') no-repeat bottom left, #508991;
 		background-size: 84%;
 		width: 50%;
 		display: flex;
