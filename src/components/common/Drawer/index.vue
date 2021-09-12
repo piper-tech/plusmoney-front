@@ -2,7 +2,7 @@
 	<v-card>
 		<v-navigation-drawer app color="#fff">
 			<v-list>
-				<v-list-item two-line>
+				<v-list-item three-line>
 					<v-img max-width="195" src="@/assets/+money.svg" />
 				</v-list-item>
 

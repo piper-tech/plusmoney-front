@@ -1,3 +1,3 @@
 <template>
-	<v-app-bar app flat height="73" color="#fff"> </v-app-bar>
+	<v-app-bar app flat height="96" color="#fff"> </v-app-bar>
 </template>
