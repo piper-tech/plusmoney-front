@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import AppBar from '@/components/organisms/AppBar'
-import Drawer from '@/components/common/Drawer'
 
 Vue.use(VueRouter)
 
@@ -29,8 +27,6 @@ const routes = [
 					import(
 						/* webpackChunkName: "dashboard-listagem" */ '@/pages/Dashboard/Listing'
 					),
-				// appbar: AppBar,
-				drawer: Drawer,
 			},
 		],
 	},

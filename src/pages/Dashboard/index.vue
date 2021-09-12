@@ -1,8 +1,8 @@
 <template>
 	<div class="dashboard">
-		<router-view name="appbar" />
-		<router-view name="drawer" />
-		<router-view name="dialog" />
+		<Appbar />
+		<Drawer />
+		<!-- <router-view name="dialog" /> -->
 		<v-main>
 			<router-view />
 		</v-main>
@@ -10,7 +10,14 @@
 </template>
 
 <script>
-export default {}
+import Appbar from '@/components/common/Appbar'
+import Drawer from '@/components/common/Drawer'
+export default {
+	components: {
+		Appbar,
+		Drawer,
+	},
+}
 </script>
 
 <style lang="scss" scoped>
