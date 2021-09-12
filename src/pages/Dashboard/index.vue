@@ -4,7 +4,9 @@
 		<Drawer />
 		<!-- <router-view name="dialog" /> -->
 		<v-main>
-			<router-view />
+			<Content>
+				<router-view />
+			</Content>
 		</v-main>
 	</div>
 </template>
@@ -12,10 +14,12 @@
 <script>
 import Appbar from '@/components/common/Appbar'
 import Drawer from '@/components/common/Drawer'
+import Content from '@/components/common/Content'
 export default {
 	components: {
 		Appbar,
 		Drawer,
+		Content,
 	},
 }
 </script>
