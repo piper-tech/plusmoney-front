@@ -12,7 +12,7 @@
 			<figure class="login__formulary__figure">
 				<img src="@/assets/+money.svg" class="login__formulary__figure__logo" />
 			</figure>
-			<v-form class="login__formulary__form">
+			<v-form class="login__formulary__form" @submit.prevent="login">
 				<v-row class="d-flex justify-center">
 					<v-col md="10" sm="3">
 						<v-text-field
@@ -20,7 +20,6 @@
 							label="Email"
 							outlined
 							clearable
-							readonly
 							hide-details
 							prepend-inner-icon="mail_outline"
 							color="#508991"
@@ -34,7 +33,6 @@
 							label="Senha"
 							outlined
 							clearable
-							readonly
 							hide-details
 							color="#508991"
 							prepend-inner-icon="mdi-lock"
@@ -45,7 +43,9 @@
 					</v-col>
 				</v-row>
 				<v-row class="d-flex justify-end mr-13">
-					<v-btn color="#508991" large class="button">Fazer login</v-btn>
+					<v-btn type="submit" color="#508991" large class="button"
+						>Fazer login</v-btn
+					>
 				</v-row>
 			</v-form>
 			<div class="login__formulary__description">
@@ -72,6 +72,21 @@ export default {
 		},
 	}),
 	transition: 'slide-fade',
+	methods: {
+		async login() {
+			try {
+				const obj = {
+					email: this.form.email,
+					password: this.form.password,
+				}
+				if (this.form.email !== '' && this.form.password !== '') {
+					this.$store.dispatch('login', obj)
+				}
+			} catch (e) {
+				console.log(e)
+			}
+		},
+	},
 }
 </script>
 

@@ -105,12 +105,25 @@ export default {
 	}),
 	methods: {
 		async registerUser() {
-			const obj = {
-				name: this.form.name,
-				email: this.form.email,
-				password: this.form.password,
+			try {
+				const obj = {
+					name: this.form.name,
+					email: this.form.email,
+					password: this.form.password,
+				}
+				await this.$store.dispatch('registerUser', obj)
+
+				alert('Usuário cadastrado com sucesso')
+				this.clearFields()
+			} catch (e) {
+				console.log(e)
 			}
-			await this.$store.dispatch('registerUser', obj)
+		},
+		clearFields() {
+			this.form.name = ''
+			this.form.email = ''
+			this.form.password = ''
+			this.form.confirmPassword = ''
 		},
 	},
 }
