@@ -37,6 +37,7 @@
 						<v-text-field
 							v-model="form.email"
 							label="Email"
+							type="email"
 							outlined
 							clearable
 							hide-details
@@ -77,13 +78,17 @@
 						/>
 					</v-col>
 				</v-row>
-				<v-row class="d-flex justify-end mr-12 mt-5">
-					<v-btn color="#508991" large outlined class="button" to="/login"
-						>Fazer login</v-btn
-					>
-					<v-btn type="submit" color="#508991" large class="button ml-5"
-						>Cadastrar</v-btn
-					>
+				<v-row class="d-flex justify-center row">
+					<v-col md="3">
+						<v-btn color="#508991" large outlined class="button" to="/login"
+							>Fazer login</v-btn
+						>
+					</v-col>
+					<v-col md="3">
+						<v-btn type="submit" color="#508991" large class="button"
+							>Cadastrar</v-btn
+						>
+					</v-col>
 				</v-row>
 			</v-form>
 		</section>
@@ -111,9 +116,16 @@ export default {
 					email: this.form.email,
 					password: this.form.password,
 				}
-				await this.$store.dispatch('registerUser', obj)
+				if (
+					this.form.name !== '' &&
+					this.form.email !== '' &&
+					this.form.password !== '' &&
+					this.form.confirmPasswrod !== ''
+				) {
+					await this.$store.dispatch('registerUser', obj)
+					alert('Usuário cadastrado com sucesso')
+				}
 
-				alert('Usuário cadastrado com sucesso')
 				this.clearFields()
 			} catch (e) {
 				console.log(e)
