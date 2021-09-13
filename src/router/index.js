@@ -1,26 +1,34 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/pages/Home'
-import Login from '@/pages/Login'
-import Register from '@/pages/Register'
 
 Vue.use(VueRouter)
 
 const routes = [
 	{
-		path: '/',
-		name: 'home',
-		component: Home,
-	},
-	{
 		path: '/login',
-		name: 'login',
-		component: Login,
+		name: 'Login',
+		component: () => import(/* webpackChunkName: "login" */ '@/pages/Login'),
 	},
 	{
 		path: '/cadastro',
 		name: 'register',
-		component: Register,
+		component: () =>
+			import(/* webpackChunkName: "register" */ '@/pages/Register'),
+	},
+	{
+		path: '/',
+		component: () =>
+			import(/* webpackChunkName: "dashboard_index" */ '@/pages/Dashboard'),
+		children: [
+			{
+				path: '/listagem',
+				name: 'dashboard-listagem',
+				component: () =>
+					import(
+						/* webpackChunkName: "dashboard-listagem" */ '@/pages/Dashboard/Listing'
+					),
+			},
+		],
 	},
 ]
 

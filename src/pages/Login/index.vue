@@ -12,30 +12,36 @@
 			<figure class="login__formulary__figure">
 				<img src="@/assets/+money.svg" class="login__formulary__figure__logo" />
 			</figure>
-			<v-form class="login__formulary__form">
+			<v-form
+				class="login__formulary__form"
+				ref="form"
+				v-model="valid"
+				lazy-validation
+				@submit.prevent="login"
+			>
 				<v-row class="d-flex justify-center">
-					<v-col md="10" sm="3">
+					<v-col md="10" class="pb-0">
 						<v-text-field
-							v-model="email"
+							v-model="form.email"
 							label="Email"
 							outlined
 							clearable
-							readonly
-							hide-details
+							:rules="emailRules"
+							required
 							prepend-inner-icon="mail_outline"
 							color="#508991"
 						/>
 					</v-col>
 				</v-row>
 				<v-row class="d-flex justify-center">
-					<v-col md="10">
+					<v-col md="10" class="pb-0 pt-0">
 						<v-text-field
-							v-model="senha"
+							v-model="form.password"
 							label="Senha"
 							outlined
 							clearable
-							readonly
-							hide-details
+							:rules="passwordRules"
+							required
 							color="#508991"
 							prepend-inner-icon="mdi-lock"
 							:append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
@@ -45,7 +51,9 @@
 					</v-col>
 				</v-row>
 				<v-row class="d-flex justify-end mr-13">
-					<v-btn color="#508991" large class="button">Fazer login</v-btn>
+					<v-btn type="submit" color="#508991" large class="button"
+						>Fazer login</v-btn
+					>
 				</v-row>
 			</v-form>
 			<div class="login__formulary__description">
@@ -66,12 +74,44 @@
 export default {
 	data: () => ({
 		show: false,
+		valid: true,
 		form: {
 			email: '',
 			password: '',
 		},
+		emailRules: [
+			(v) => !!v || 'E-mail  obrigatório',
+			(v) => /.+@.+\..+/.test(v) || 'E-mail deve ser válido',
+		],
+		passwordRules: [(v) => !!v || 'Senha é obrigatório'],
 	}),
 	transition: 'slide-fade',
+	methods: {
+		validate() {
+			this.$refs.form.validate()
+		},
+
+		async login() {
+			try {
+				const obj = {
+					email: this.form.email,
+					password: this.form.password,
+				}
+				this.validate()
+				if (this.form.email !== '' && this.form.password !== '') {
+					this.$store.dispatch('login', obj)
+					this.$router.push('/listagem')
+				} else {
+					this.$store.dispatch('setSnackbar', {
+						status: true,
+						message: 'Usuário ou senha incorretos',
+					})
+				}
+			} catch (e) {
+				console.log(e)
+			}
+		},
+	},
 }
 </script>
 

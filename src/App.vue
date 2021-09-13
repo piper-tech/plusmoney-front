@@ -3,16 +3,33 @@
 		<transition name="page" mode="out-in">
 			<router-view />
 		</transition>
+		<v-snackbar bottom v-model="snackbar">{{ getSnackbarMsg }}</v-snackbar>
 	</v-app>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
 	name: 'App',
-
 	data: () => ({
-		//
+		snackbar: false,
 	}),
+	computed: {
+		...mapGetters(['getSnackbar', 'getSnackbarMsg']),
+	},
+	watch: {
+		getSnackbar() {
+			this.snackbar = this.getSnackbar
+		},
+		snackbar() {
+			if (!this.snackbar) {
+				this.$store.dispatch('setSnackbar', {
+					status: false,
+					msg: '',
+				})
+			}
+		},
+	},
 }
 </script>
 

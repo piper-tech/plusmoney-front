@@ -18,41 +18,51 @@
 					class="register__formulary__figure__logo"
 				/>
 			</figure>
-			<v-form class="register__formulary__form">
+			<v-form
+				class="register__formulary__form"
+				ref="form"
+				v-model="valid"
+				lazy-validation
+				@submit.prevent="registerUser"
+			>
 				<v-row class="d-flex justify-center">
-					<v-col md="10" sm="3">
+					<v-col md="10" class="pb-0 pt-0">
 						<v-text-field
-							v-model="form.fullName"
+							v-model="form.name"
 							label="Nome completo"
 							outlined
 							clearable
-							hide-details
+							:rules="nameRules"
+							required
 							prepend-inner-icon="person"
 							color="#508991"
 						/>
 					</v-col>
 				</v-row>
 				<v-row class="d-flex justify-center">
-					<v-col md="10" sm="3">
+					<v-col md="10" class="pb-0 pt-0">
 						<v-text-field
 							v-model="form.email"
 							label="Email"
+							type="email"
 							outlined
 							clearable
-							hide-details
+							:rules="emailRules"
+							required
 							prepend-inner-icon="mail_outline"
 							color="#508991"
 						/>
 					</v-col>
 				</v-row>
 				<v-row class="d-flex justify-center">
-					<v-col md="10">
+					<v-col md="10" class="pb-0 pt-0">
 						<v-text-field
 							v-model="form.password"
 							label="Senha"
 							outlined
 							clearable
-							hide-details
+							:rules="passwordRules"
+							required
 							color="#508991"
 							prepend-inner-icon="mdi-lock"
 							:append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
@@ -62,13 +72,14 @@
 					</v-col>
 				</v-row>
 				<v-row class="d-flex justify-center">
-					<v-col md="10">
+					<v-col md="10" class="pb-0 pt-0">
 						<v-text-field
 							v-model="form.confirmPassword"
 							label="Confirmar senha"
 							outlined
 							clearable
-							hide-details
+							:rules="passwordConfirmRules"
+							required
 							color="#508991"
 							prepend-inner-icon="mdi-lock"
 							:append-icon="showConfirm ? 'mdi-eye' : 'mdi-eye-off'"
@@ -77,11 +88,17 @@
 						/>
 					</v-col>
 				</v-row>
-				<v-row class="d-flex justify-end mr-12 mt-5">
-					<v-btn color="#508991" large outlined class="button" to="/login"
-						>Fazer login</v-btn
-					>
-					<v-btn color="#508991" large class="button ml-5">Cadastrar</v-btn>
+				<v-row class="d-flex justify-center mt-0">
+					<v-col md="3">
+						<v-btn color="#508991" large outlined class="button" to="/login"
+							>Fazer login</v-btn
+						>
+					</v-col>
+					<v-col md="3">
+						<v-btn type="submit" color="#508991" large class="button"
+							>Cadastrar</v-btn
+						>
+					</v-col>
 				</v-row>
 			</v-form>
 		</section>
@@ -94,13 +111,51 @@ export default {
 	data: () => ({
 		show: false,
 		showConfirm: false,
+		valid: true,
 		form: {
-			fullName: '',
+			name: '',
 			email: '',
 			password: '',
 			confirmPasswrod: '',
 		},
+		nameRules: [(v) => !!v || 'Nome é obrigatório'],
+		emailRules: [
+			(v) => !!v || 'E-mail  obrigatório',
+			(v) => /.+@.+\..+/.test(v) || 'E-mail deve ser válido',
+		],
+		passwordRules: [(v) => !!v || 'Senha é obrigatório'],
+		passwordConfirmRules: [(v) => !!v || 'Confirmar senha é obrigatório'],
 	}),
+	methods: {
+		validate() {
+			this.$refs.form.validate()
+		},
+		resetValidation() {
+			this.$refs.form.resetValidation()
+		},
+		async registerUser() {
+			try {
+				const obj = {
+					name: this.form.name,
+					email: this.form.email,
+					password: this.form.password,
+				}
+				await this.$store.dispatch('registerUser', obj)
+				// this.$router.push('/login')
+
+				this.validate()
+				setTimeout(this.resetValidation, 3000)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+		clearFields() {
+			this.form.name = ''
+			this.form.email = ''
+			this.form.password = ''
+			this.form.confirmPassword = ''
+		},
+	},
 }
 </script>
 
@@ -155,7 +210,7 @@ export default {
 			padding-top: 15px;
 			.button {
 				color: #fff;
-				width: 180px;
+				width: 130px;
 				text-transform: capitalize;
 				font-size: 16px;
 			}
