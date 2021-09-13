@@ -14,8 +14,11 @@
 		width: 90%;
 		margin: 0 auto;
 	}
+	@media (min-width: 961px) {
+		width: 95%;
+	}
 	@media (max-width: $sm) {
-		width: 90%;
+		width: 95%;
 	}
 }
 </style>

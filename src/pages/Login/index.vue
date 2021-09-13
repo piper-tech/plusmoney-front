@@ -12,28 +12,36 @@
 			<figure class="login__formulary__figure">
 				<img src="@/assets/+money.svg" class="login__formulary__figure__logo" />
 			</figure>
-			<v-form class="login__formulary__form" @submit.prevent="login">
+			<v-form
+				class="login__formulary__form"
+				ref="form"
+				v-model="valid"
+				lazy-validation
+				@submit.prevent="login"
+			>
 				<v-row class="d-flex justify-center">
-					<v-col md="10" sm="3">
+					<v-col md="10" class="pb-0">
 						<v-text-field
 							v-model="form.email"
 							label="Email"
 							outlined
 							clearable
-							hide-details
+							:rules="emailRules"
+							required
 							prepend-inner-icon="mail_outline"
 							color="#508991"
 						/>
 					</v-col>
 				</v-row>
 				<v-row class="d-flex justify-center">
-					<v-col md="10">
+					<v-col md="10" class="pb-0 pt-0">
 						<v-text-field
 							v-model="form.password"
 							label="Senha"
 							outlined
 							clearable
-							hide-details
+							:rules="passwordRules"
+							required
 							color="#508991"
 							prepend-inner-icon="mdi-lock"
 							:append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
@@ -66,21 +74,37 @@
 export default {
 	data: () => ({
 		show: false,
+		valid: true,
 		form: {
 			email: '',
 			password: '',
 		},
+		emailRules: [
+			(v) => !!v || 'E-mail  obrigatório',
+			(v) => /.+@.+\..+/.test(v) || 'E-mail deve ser válido',
+		],
+		passwordRules: [(v) => !!v || 'Senha é obrigatório'],
 	}),
 	transition: 'slide-fade',
 	methods: {
+		validate() {
+			this.$refs.form.validate()
+		},
+
 		async login() {
 			try {
 				const obj = {
 					email: this.form.email,
 					password: this.form.password,
 				}
+				this.validate()
 				if (this.form.email !== '' && this.form.password !== '') {
 					this.$store.dispatch('login', obj)
+				} else {
+					this.$store.dispatch('setSnackbar', {
+						status: true,
+						message: 'Usuário ou senha incorretos',
+					})
 				}
 			} catch (e) {
 				console.log(e)
