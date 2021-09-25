@@ -5,20 +5,11 @@
 </template>
 
 <style lang="scss" scoped>
-@import '@/style/variables.scss';
 .content {
-	width: 80%;
+	width: 100%;
 	margin: 0 auto;
 	padding-top: 30px;
-	@media (min-width: 1250px) {
-		width: 90%;
-		margin: 0 auto;
-	}
-	@media (min-width: 961px) {
-		width: 95%;
-	}
-	@media (max-width: $sm) {
-		width: 95%;
-	}
+	padding-left: 30px;
+	padding-right: 30px;
 }
 </style>

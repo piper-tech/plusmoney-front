@@ -5,7 +5,7 @@ Vue.use(VueRouter)
 
 const routes = [
 	{
-		path: '/login',
+		path: '/',
 		name: 'Login',
 		component: () => import(/* webpackChunkName: "login" */ '@/pages/Login'),
 	},
@@ -16,16 +16,32 @@ const routes = [
 			import(/* webpackChunkName: "register" */ '@/pages/Register'),
 	},
 	{
-		path: '/',
+		path: '/listagem',
 		component: () =>
-			import(/* webpackChunkName: "dashboard_index" */ '@/pages/Dashboard'),
+			import(/* webpackChunkName: "dashboard_index" */ '@/pages/Dashboard/'),
 		children: [
 			{
-				path: '/listagem',
+				path: '',
 				name: 'dashboard-listagem',
 				component: () =>
 					import(
 						/* webpackChunkName: "dashboard-listagem" */ '@/pages/Dashboard/Listing'
+					),
+			},
+			{
+				path: '/listagem/cadastrar/',
+				name: 'listagem-cadastrar',
+				component: () =>
+					import(
+						/* webpackChunkName: "listagem-cadastrar" */ '@/pages/Dashboard/Listing/RegisterValues'
+					),
+			},
+			{
+				path: '/listagem/editar/',
+				name: 'listagem-editar',
+				component: () =>
+					import(
+						/* webpackChunkName: "listagem-editar" */ '@/pages/Dashboard/Listing/UpdateValues'
 					),
 			},
 		],
