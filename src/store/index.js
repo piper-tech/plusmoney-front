@@ -27,7 +27,7 @@ export default new Vuex.Store({
 			commit('setSnackbar', data)
 		},
 
-		async registerUser({ dispatch, commit }, params) {
+		async registerUser({ dispatch }, params) {
 			try {
 				const { data } = await loadFields
 					.registerUser(params)
@@ -43,20 +43,26 @@ export default new Vuex.Store({
 							)
 						}
 					})
-
-				commit('setRegisterUser', data)
 				console.log(data)
 				return data
 			} catch (e) {
 				console.log(e)
 			}
 		},
-		async login({ commit }, params) {
+
+		async login(_, params) {
 			try {
 				const { data } = await loadFields.login(params)
-				commit('setLogin', data)
-				window.localStorage.setItem('token', JSON.stringify(data))
+				window.localStorage.setItem('Authorization', data.accessToken)
 				return data
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async registerValue(_, params) {
+			try {
+				await loadFields.registerValue(params)
 			} catch (e) {
 				console.log(e)
 			}

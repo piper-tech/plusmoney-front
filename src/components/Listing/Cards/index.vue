@@ -47,7 +47,7 @@
 <style lang="scss" scoped>
 .cards {
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	&__card {
 		padding: 10px;
 		&__header {

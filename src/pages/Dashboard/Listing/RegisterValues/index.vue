@@ -1,20 +1,16 @@
 <template>
-	<v-navigation-drawer v-model="dialog" absolute temporary right width="600px">
-		<v-card flat class="create">
-			<v-card-title>
-				<h1 class="page-title">Cadastrar Valores</h1>
-				<v-btn icon>
+	<v-navigation-drawer v-model="dialog" absolute temporary right width="550px">
+		<v-card flat class="card" height="100%">
+			<v-card-title class="card__header">
+				<span class="card__header__title">Cadastrar valor</span>
+
+				<v-btn color="#fff" fab icon @click="close" class="button">
 					<v-icon>close</v-icon>
 				</v-btn>
 			</v-card-title>
-
-			<v-card-text>
+			<v-card-text class="card__text">
 				<Form />
 			</v-card-text>
-
-			<v-card-actions style="display: flex; justify-content: flex-end">
-				<v-btn color="#F40F46" outlined depressed>Cadastrar</v-btn>
-			</v-card-actions>
 		</v-card>
 	</v-navigation-drawer>
 </template>
@@ -22,8 +18,48 @@
 <script>
 import Form from '@/components/Listing/RegisterValues/Form'
 export default {
+	data: () => ({
+		dialog: false,
+	}),
 	components: {
 		Form,
 	},
+	mounted() {
+		setTimeout(() => {
+			this.dialog = true
+		}, 300)
+	},
+	methods: {
+		close() {
+			this.dialog = false
+			setTimeout(() => {
+				this.$router.push({ name: 'listagem' })
+			}, 300)
+		},
+	},
 }
 </script>
+
+<style lang="scss" scoped>
+.card {
+	border-radius: 0;
+	&__header {
+		background-color: #508991;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		&__title {
+			font-weight: 600;
+			font-size: 22px;
+			color: #fff;
+		}
+	}
+	&__text {
+		height: 90%;
+		padding: 30px 25px;
+	}
+	&__actions {
+		padding: 0 25px;
+	}
+}
+</style>

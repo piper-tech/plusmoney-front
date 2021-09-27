@@ -13,4 +13,15 @@ const HTTPClient = axios.create({
 	baseURL: withBaseURLContext(),
 })
 
+HTTPClient.interceptors.request.use(
+	(config) => {
+		const token = window.localStorage.Authorization
+		if (token) {
+			config.headers.common.Authorization = `Bearer ${token}`
+		}
+		return config
+	},
+	(response) => Promise.reject(response)
+)
+
 export default HTTPClient

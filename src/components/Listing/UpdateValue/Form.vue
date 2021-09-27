@@ -119,7 +119,7 @@
 				outlined
 				depressed
 				height="45px"
-				>Cadastrar</v-btn
+				>Editar</v-btn
 			>
 		</v-card-actions>
 	</v-form>

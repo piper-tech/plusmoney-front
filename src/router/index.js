@@ -18,31 +18,43 @@ const routes = [
 	{
 		path: '/listagem',
 		component: () =>
-			import(/* webpackChunkName: "dashboard_index" */ '@/pages/Dashboard/'),
+			import(/* webpackChunkName: "dashboard_index" */ '@/pages/Dashboard'),
 		children: [
 			{
 				path: '',
-				name: 'dashboard-listagem',
+				name: 'listagem',
 				component: () =>
 					import(
-						/* webpackChunkName: "dashboard-listagem" */ '@/pages/Dashboard/Listing'
+						/* webpackChunkName: "listagem" */ '@/pages/Dashboard/Listing'
 					),
 			},
 			{
 				path: '/listagem/cadastrar/',
 				name: 'listagem-cadastrar',
-				component: () =>
-					import(
-						/* webpackChunkName: "listagem-cadastrar" */ '@/pages/Dashboard/Listing/RegisterValues'
-					),
+				components: {
+					default: () =>
+						import(
+							/* webpackChunkName: "listagem" */ '@/pages/Dashboard/Listing'
+						),
+					dialog: () =>
+						import(
+							/* webpackChunkName: "listagem-cadastrar" */ '@/pages/Dashboard/Listing/RegisterValues'
+						),
+				},
 			},
 			{
 				path: '/listagem/editar/',
 				name: 'listagem-editar',
-				component: () =>
-					import(
-						/* webpackChunkName: "listagem-editar" */ '@/pages/Dashboard/Listing/UpdateValues'
-					),
+				components: {
+					default: () =>
+						import(
+							/* webpackChunkName: "listagem" */ '@/pages/Dashboard/Listing'
+						),
+					dialog: () =>
+						import(
+							/* webpackChunkName: "listagem-editar" */ '@/pages/Dashboard/Listing/UpdateValues'
+						),
+				},
 			},
 		],
 	},

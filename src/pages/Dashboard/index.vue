@@ -2,7 +2,7 @@
 	<div class="dashboard">
 		<Appbar />
 		<Drawer />
-		<!-- <router-view name="dialog" /> -->
+		<router-view name="dialog" />
 		<v-main>
 			<Content>
 				<router-view />
