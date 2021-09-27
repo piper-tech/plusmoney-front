@@ -18,19 +18,7 @@
 					</v-list-item-content>
 				</v-list-item>
 
-				<v-list-item link :to="{ name: 'listagem-cadastrar' }">
-					<v-list-item-icon>
-						<v-icon color="#868686">attach_money</v-icon>
-					</v-list-item-icon>
-
-					<v-list-item-content>
-						<v-list-item-title :style="{ color: '#868686' }"
-							>Inserir valores</v-list-item-title
-						>
-					</v-list-item-content>
-				</v-list-item>
-
-				<v-list-item link>
+				<v-list-item link :to="{ name: 'categorias' }">
 					<v-list-item-icon>
 						<v-icon color="#868686">category</v-icon>
 					</v-list-item-icon>

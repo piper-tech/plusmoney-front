@@ -1,0 +1,58 @@
+<template>
+	<v-form class="form">
+		<div class="form__content">
+			<v-row>
+				<v-col md="12">
+					<v-text-field
+						label="Descrição"
+						outlined
+						clearable
+						required
+						prepend-inner-icon="add"
+						color="#508991"
+						hide-details
+						v-model="description"
+					/>
+				</v-col>
+			</v-row>
+			<v-row>
+				<v-col md="12">
+					<v-autocomplete
+						label="Categorias"
+						outlined
+						clearable
+						prepend-inner-icon="category"
+						color="#508991"
+						hide-details
+						v-model="category"
+					/>
+				</v-col>
+			</v-row>
+		</div>
+		<v-card-actions
+			class="form__actions pr-0 mt-3"
+			style="display: flex; justify-content: flex-end"
+		>
+			<v-btn color="#508991" dark depressed height="45px" width="125px"
+				>Cadastrar</v-btn
+			>
+		</v-card-actions>
+	</v-form>
+</template>
+
+<script>
+export default {
+	data: () => ({
+		description: '',
+		category: '',
+	}),
+}
+</script>
+
+<style lang="scss" scoped>
+.form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+</style>

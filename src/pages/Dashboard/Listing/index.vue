@@ -1,5 +1,6 @@
 <template>
 	<div class="listing">
+		<Header />
 		<div class="listing__cards">
 			<Cards />
 		</div>
@@ -11,11 +12,13 @@
 </template>
 
 <script>
+import Header from '@/components/Listing/Header'
 import Cards from '@/components/Listing/Cards'
 import Graphic from '@/components/Listing/Graphic'
 import Listing from '@/components/Listing/Listing'
 export default {
 	components: {
+		Header,
 		Cards,
 		Listing,
 		Graphic,

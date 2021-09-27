@@ -116,9 +116,10 @@
 			<v-btn
 				@click="registerValue"
 				color="#508991"
-				outlined
+				dark
 				depressed
 				height="45px"
+				width="125px"
 				>Editar</v-btn
 			>
 		</v-card-actions>
@@ -164,10 +165,8 @@ export default {
 
 <style lang="scss" scoped>
 .form {
-	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 }
 
 .active-entry {

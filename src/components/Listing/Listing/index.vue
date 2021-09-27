@@ -26,7 +26,9 @@
 							}}</span>
 						</div>
 					</div>
-					<span class="card__list__item__content__price">{{ item.price }}</span>
+					<span class="card__list__item__content__price"
+						>R$ {{ item.price }}</span
+					>
 				</div>
 			</v-list-item>
 		</v-list>
@@ -39,19 +41,27 @@ export default {
 		list: [
 			{
 				id: 1,
+				date: '5 de setembro',
+				icon: 'add',
+				description: 'Salário Signa',
+				category: 'Vendas',
+				price: '2.000,00',
+			},
+			{
+				id: 2,
 				date: '11 de setembro',
 				icon: 'add',
 				description: 'Aluguel casa Paraíso',
 				category: 'Vendas',
-				price: 'R$ 1.500,00',
+				price: '1.500,00',
 			},
 			{
-				id: 2,
+				id: 3,
 				date: '18 de setembro',
 				icon: 'remove',
 				description: 'Conta de água',
 				category: 'Casa',
-				price: 'R$ 84,65',
+				price: '84,65',
 			},
 		],
 	}),
@@ -77,6 +87,7 @@ export default {
 			width: 100%;
 			display: flex;
 			flex-direction: column;
+			height: 110px;
 			&__date {
 				width: 100%;
 				border-bottom: 1px solid #d9dcdd;

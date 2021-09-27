@@ -56,6 +56,43 @@ const routes = [
 						),
 				},
 			},
+
+			{
+				path: '/categorias',
+				name: 'categorias',
+				component: () =>
+					import(
+						/* webpackChunkName: "categorias" */ '@/pages/Dashboard/Categories'
+					),
+			},
+			{
+				path: '/categorias/cadastrar/',
+				name: 'categorias-cadastrar',
+				components: {
+					default: () =>
+						import(
+							/* webpackChunkName: "categorias" */ '@/pages/Dashboard/Categories'
+						),
+					dialog: () =>
+						import(
+							/* webpackChunkName: "categorias-cadastrar" */ '@/pages/Dashboard/Categories/RegisterCategory'
+						),
+				},
+			},
+			{
+				path: '/categorias/editar/',
+				name: 'categorias-editar',
+				components: {
+					default: () =>
+						import(
+							/* webpackChunkName: "categorias" */ '@/pages/Dashboard/Categories'
+						),
+					dialog: () =>
+						import(
+							/* webpackChunkName: "categorias-editar" */ '@/pages/Dashboard/Categories/UpdateCategory'
+						),
+				},
+			},
 		],
 	},
 ]

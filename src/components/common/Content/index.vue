@@ -10,12 +10,9 @@
 	justify-content: center;
 	display: flex;
 	margin: 0 auto;
-	padding-top: 30px;
+	padding: 30px;
+	/* padding-top: 30px;
 	padding-left: 30px;
-	padding-right: 30px;
-	/* @media (min-width: 1400px) {
-		width: 97%;
-		margin: 0 auto;
-	} */
+	padding-right: 30px; */
 }
 </style>
