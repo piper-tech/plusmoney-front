@@ -5,6 +5,7 @@
 			<Search />
 			<Actions />
 		</div>
+		<Table />
 	</div>
 </template>
 
@@ -12,12 +13,14 @@
 import Header from '@/components/Categories/Header'
 import Search from '@/components/Categories/Search'
 import Actions from '@/components/Categories/Actions'
+import Table from '@/components/Categories/Table'
 export default {
 	data: () => ({}),
 	components: {
 		Header,
 		Search,
 		Actions,
+		Table,
 	},
 }
 </script>
