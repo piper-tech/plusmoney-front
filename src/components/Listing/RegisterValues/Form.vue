@@ -43,7 +43,6 @@
 						<v-icon class="mr-2">arrow_circle_up</v-icon>
 						Entrada
 					</v-btn>
-					{{ entry }}
 				</v-col>
 				<v-col md="6">
 					<v-btn
@@ -58,7 +57,6 @@
 						<v-icon class="mr-2">arrow_circle_down</v-icon>
 						Saída
 					</v-btn>
-					{{ output }}
 				</v-col>
 			</v-row>
 			<v-row>
@@ -95,7 +93,7 @@
 								readonly
 								v-bind="attrs"
 								v-on="on"
-							></v-text-field>
+							/>
 						</template>
 						<v-date-picker
 							v-model="date"
@@ -106,7 +104,6 @@
 						/>
 					</v-menu>
 				</v-col>
-				{{ date }}
 			</v-row>
 		</div>
 		<v-card-actions
@@ -128,6 +125,7 @@
 
 <script>
 import { format } from 'date-fns'
+import { mapGetters } from 'vuex'
 export default {
 	data: () => ({
 		menu: false,
@@ -139,9 +137,13 @@ export default {
 		output: false,
 	}),
 	computed: {
+		...mapGetters({ getEmail: 'getEmail', getLoadUsers: 'getLoadUsers' }),
 		computedDateFormatted() {
 			return this.formatDate(this.date)
 		},
+	},
+	created() {
+		this.$store.dispatch('loadUsers', this.getEmail)
 	},
 	methods: {
 		formatDate(date) {
@@ -151,13 +153,35 @@ export default {
 			return `${day}/${month}/${year}`
 		},
 		async registerValue() {
-			const obj = {
-				description: this.description,
-				value: this.entry === true ? this.value : '-' + this.value,
-				dateEntry:
-					format(new Date(this.date)) || format(new Date(), 'dd/MM/yyyy'),
+			try {
+				const obj = {
+					userId: this.getLoadUsers.id,
+					description: this.description,
+					value: this.entry === true ? this.value : '-' + this.value,
+					date:
+						format(new Date(this.date), 'dd/MM/yyyy') ||
+						format(new Date(), 'dd/MM/yyyy'),
+				}
+				await this.$store.dispatch('registerValue', obj)
+				this.$store.dispatch('setSnackbar', {
+					status: true,
+					message: 'Valor cadastrado com sucesso!',
+				})
+				this.clear()
+			} catch (e) {
+				this.$store.dispatch('setSnackbar', {
+					status: true,
+					message: 'Algo deu errado, tente novamente',
+				})
 			}
-			await this.$store.dispatch('registerValue', obj)
+		},
+		clear() {
+			this.date = null
+			this.description = ''
+			this.value = ''
+			this.category = ''
+			this.entry = false
+			this.output = false
 		},
 	},
 }

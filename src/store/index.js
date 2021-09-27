@@ -8,6 +8,8 @@ export default new Vuex.Store({
 	state: {
 		snackbar: false,
 		snackbarMsg: '',
+		users: {},
+		email: '',
 	},
 
 	mutations: {
@@ -15,11 +17,19 @@ export default new Vuex.Store({
 			state.snackbar = status
 			state.snackbarMsg = message
 		},
+		loadUsers(state, data) {
+			state.users = data
+		},
+		setEmail(state, date) {
+			state.email = date
+		},
 	},
 
 	getters: {
 		getSnackbar: (state) => state.snackbar,
 		getSnackbarMsg: (state) => state.snackbarMsg,
+		getLoadUsers: (state) => state.users,
+		getEmail: (state) => state.email,
 	},
 
 	actions: {
@@ -50,10 +60,20 @@ export default new Vuex.Store({
 			}
 		},
 
-		async login(_, params) {
+		async loadUsers({ commit }, email) {
 			try {
-				const { data } = await loadFields.login(params)
+				const { data } = await loadFields.loadUsers(email)
+				commit('loadUsers', data)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async login({ commit }, email) {
+			try {
+				const { data } = await loadFields.login(email)
 				window.localStorage.setItem('Authorization', data.accessToken)
+				commit('setEmail', email.email)
 				return data
 			} catch (e) {
 				console.log(e)

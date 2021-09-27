@@ -12,11 +12,7 @@
 				hide-details
 			/>
 		</v-card-title>
-		<v-data-table
-			:headers="headers"
-			:items="desserts"
-			:search="search"
-		></v-data-table>
+		<v-data-table :headers="headers" :items="desserts" :search="search" />
 	</v-card>
 </template>
 
