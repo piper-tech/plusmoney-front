@@ -2,7 +2,7 @@ import Http from '@/utils/request'
 
 export default {
 	login: (params) => Http.post('login', params),
-	registerUser: (params) => Http.post('users', params),
+	registerUser: (params) => Http.post('logup', params),
 	loadUsers: (email) =>
 		Http.get(`users`, {
 			params: {
