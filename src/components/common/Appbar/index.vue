@@ -2,9 +2,9 @@
 	<v-app-bar app flat height="96" color="#fff">
 		<Content>
 			<div class="content">
-				<div>
+				<div class="content__profile">
 					<v-avatar color="#508991" size="60" class="mr-3"> </v-avatar>
-					<span>{{ getLoadUsers.name }}</span>
+					<span class="content__profile__name">{{ getLoadUsers.name }}</span>
 				</div>
 
 				<v-btn icon class="ml-10" @click="logout">
@@ -41,5 +41,13 @@ export default {
 	justify-content: flex-end;
 	max-width: 1050px;
 	padding: 0 !important;
+	&__profile {
+		&__name {
+			color: #868686;
+			font-family: 'Poppins', sans-serif;
+			font-size: 15px;
+			font-weight: 500;
+		}
+	}
 }
 </style>
