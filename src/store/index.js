@@ -10,6 +10,7 @@ export default new Vuex.Store({
 		snackbarMsg: '',
 		users: {},
 		email: '',
+		valuesList: [],
 	},
 
 	mutations: {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
 		setEmail(state, date) {
 			state.email = date
 		},
+		setValuesList(state, data) {
+			state.valuesList = data
+		},
 	},
 
 	getters: {
@@ -30,6 +34,7 @@ export default new Vuex.Store({
 		getSnackbarMsg: (state) => state.snackbarMsg,
 		getLoadUsers: (state) => state.users,
 		getEmail: (state) => state.email,
+		getValuesList: (state) => state.valuesList,
 	},
 
 	actions: {
@@ -83,6 +88,15 @@ export default new Vuex.Store({
 		async registerValue(_, params) {
 			try {
 				await loadFields.registerValue(params)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async handleValuesList({ commit }, userId) {
+			try {
+				const { data } = await loadFields.valuesList(userId)
+				commit('setValuesList', data)
 			} catch (e) {
 				console.log(e)
 			}

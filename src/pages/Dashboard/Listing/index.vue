@@ -22,8 +22,15 @@ export default {
 	created() {
 		this.$store.dispatch('loadUsers', this.getEmail)
 	},
+	mounted() {
+		this.$store.dispatch('handleValuesList', this.getLoadUsers.id)
+	},
 	computed: {
-		...mapGetters({ getEmail: 'getEmail', getLoadUsers: 'getLoadUsers' }),
+		...mapGetters({
+			getEmail: 'getEmail',
+			getLoadUsers: 'getLoadUsers',
+			getValuesList: 'getValuesList',
+		}),
 	},
 	components: {
 		Header,

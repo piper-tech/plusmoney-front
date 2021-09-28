@@ -10,4 +10,5 @@ export default {
 			},
 		}),
 	registerValue: (params) => Http.post('Entry', params),
+	valuesList: (userId) => Http.get(`entry?userId=${userId}`),
 }

@@ -2,7 +2,7 @@
 	<v-card class="card" width="530px">
 		<v-list class="card__list">
 			<v-list-item
-				v-for="(item, index) in list"
+				v-for="(item, index) in getValuesList"
 				:key="index"
 				class="card__list__item"
 				@click="editListItem"
@@ -27,7 +27,7 @@
 						</div>
 					</div>
 					<span class="card__list__item__content__price"
-						>R$ {{ item.price }}</span
+						>R$ {{ item.value }}</span
 					>
 				</div>
 			</v-list-item>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
 	data: () => ({
 		list: [
@@ -65,6 +66,17 @@ export default {
 			},
 		],
 	}),
+	computed: {
+		...mapGetters({
+			getLoadUsers: 'getLoadUsers',
+			getValuesList: 'getValuesList',
+			getEmail: 'getEmail',
+		}),
+	},
+	created() {
+		this.$store.dispatch('loadUsers', this.getEmail)
+		this.$store.dispatch('handleValuesList', this.getLoadUsers.id)
+	},
 	methods: {
 		editListItem() {
 			this.$router.push({
