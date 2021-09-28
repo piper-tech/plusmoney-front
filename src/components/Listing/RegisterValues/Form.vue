@@ -137,7 +137,10 @@ export default {
 		output: false,
 	}),
 	computed: {
-		...mapGetters({ getEmail: 'getEmail', getLoadUsers: 'getLoadUsers' }),
+		...mapGetters({
+			getEmail: 'getEmail',
+			getLoadUsers: 'getLoadUsers',
+		}),
 		computedDateFormatted() {
 			return this.formatDate(this.date)
 		},
@@ -160,7 +163,7 @@ export default {
 					value: this.entry === true ? this.value : '-' + this.value,
 					date:
 						format(new Date(this.date), 'dd/MM/yyyy') ||
-						format(new Date(), 'dd/MM/yyyy'),
+						format(new Date().toLocaleDateString(), 'dd/MM/yyyy'),
 				}
 				await this.$store.dispatch('registerValue', obj)
 				this.$store.dispatch('setSnackbar', {
@@ -168,6 +171,7 @@ export default {
 					message: 'Valor cadastrado com sucesso!',
 				})
 				this.clear()
+				this.$store.dispatch('handleValuesList', this.getLoadUsers.id)
 			} catch (e) {
 				this.$store.dispatch('setSnackbar', {
 					status: true,
