@@ -12,11 +12,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Header from '@/components/Listing/Header'
 import Cards from '@/components/Listing/Cards'
 import Graphic from '@/components/Listing/Graphic'
 import Listing from '@/components/Listing/Listing'
 export default {
+	created() {
+		this.$store.dispatch('loadUsers', this.getEmail)
+	},
+	computed: {
+		...mapGetters({ getEmail: 'getEmail', getLoadUsers: 'getLoadUsers' }),
+	},
 	components: {
 		Header,
 		Cards,
