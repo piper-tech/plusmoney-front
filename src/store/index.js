@@ -74,11 +74,11 @@ export default new Vuex.Store({
 			}
 		},
 
-		async login({ commit }, email) {
+		async login({ commit }, params) {
 			try {
-				const { data } = await loadFields.login(email)
+				const { data } = await loadFields.login(params)
 				window.localStorage.setItem('Authorization', data.accessToken)
-				commit('setEmail', email.email)
+				commit('setEmail', params.email)
 				return data
 			} catch (e) {
 				console.log(e)

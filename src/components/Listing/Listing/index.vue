@@ -14,7 +14,7 @@
 					<div class="card__list__item__content__box">
 						<figure class="card__list__item__content__box__figure">
 							<v-icon :color="item.icon === 'add' ? '#1BC200' : '#E30000'">{{
-								item.icon
+								item.type === 'entry' ? 'add' : 'remove'
 							}}</v-icon>
 						</figure>
 						<div class="card__list__item__content__box__text">
@@ -82,7 +82,7 @@ export default {
 			this.$router.push({
 				name: 'listagem-editar',
 				params: {
-					id: this.list.id,
+					id: this.getValuesList.id,
 				},
 			})
 		},
@@ -93,6 +93,8 @@ export default {
 <style lang="scss" scoped>
 .card {
 	padding: 15px;
+	max-height: 500px;
+	overflow-y: scroll;
 	&__list {
 		width: 100%;
 		&__item {
