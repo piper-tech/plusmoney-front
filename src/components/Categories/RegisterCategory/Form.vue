@@ -15,25 +15,18 @@
 					/>
 				</v-col>
 			</v-row>
-			<v-row>
-				<v-col md="12">
-					<v-autocomplete
-						label="Categorias"
-						outlined
-						clearable
-						prepend-inner-icon="category"
-						color="#508991"
-						hide-details
-						v-model="category"
-					/>
-				</v-col>
-			</v-row>
 		</div>
 		<v-card-actions
 			class="form__actions pr-0 mt-3"
 			style="display: flex; justify-content: flex-end"
 		>
-			<v-btn color="#508991" dark depressed height="45px" width="125px"
+			<v-btn
+				color="#508991"
+				dark
+				depressed
+				height="45px"
+				width="125px"
+				@click="registerCategory"
 				>Cadastrar</v-btn
 			>
 		</v-card-actions>
@@ -41,11 +34,34 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
 	data: () => ({
 		description: '',
-		category: '',
 	}),
+	computed: {
+		...mapGetters({
+			getMe: 'getMe',
+		}),
+	},
+	methods: {
+		async registerCategory() {
+			try {
+				const obj = {
+					userId: this.getMe.id,
+					description: this.description,
+				}
+				await this.$store.dispatch('registerCategory', obj)
+				this.$store.dispatch('setSnackbar', {
+					status: true,
+					message: 'Categoria cadastrada com sucesso!',
+				})
+				this.$router.go('-1')
+			} catch (e) {
+				console.log(e)
+			}
+		},
+	},
 }
 </script>
 

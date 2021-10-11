@@ -22,7 +22,7 @@
 								item.description
 							}}</span>
 							<span class="card__list__item__content__box__text__category">{{
-								item.category
+								item.category.description
 							}}</span>
 						</div>
 					</div>
@@ -68,14 +68,21 @@ export default {
 	}),
 	computed: {
 		...mapGetters({
-			getLoadUsers: 'getLoadUsers',
 			getValuesList: 'getValuesList',
-			getEmail: 'getEmail',
+			getMe: 'getMe',
 		}),
 	},
-	created() {
-		this.$store.dispatch('loadUsers', this.getEmail)
-		this.$store.dispatch('handleValuesList', this.getLoadUsers.id)
+	watch: {
+		getMe() {
+			if (this.getMe.id) {
+				this.$store.dispatch('handleValuesList', this.getMe.id)
+			}
+		},
+	},
+	mounted() {
+		if (this.getMe.id) {
+			this.$store.dispatch('handleValuesList', this.getMe.id)
+		}
 	},
 	methods: {
 		editListItem() {

@@ -4,7 +4,7 @@
 			<div class="content">
 				<div class="content__profile">
 					<v-avatar color="#508991" size="60" class="mr-3"> </v-avatar>
-					<span class="content__profile__name">{{ getLoadUsers.name }}</span>
+					<span class="content__profile__name">{{ getMe.name }}</span>
 				</div>
 
 				<v-btn icon class="ml-10" @click="logout">
@@ -20,7 +20,7 @@ import { mapGetters } from 'vuex'
 import Content from '@/components/common/Content'
 export default {
 	computed: {
-		...mapGetters({ getLoadUsers: 'getLoadUsers' }),
+		...mapGetters({ getMe: 'getMe' }),
 	},
 	components: {
 		Content,

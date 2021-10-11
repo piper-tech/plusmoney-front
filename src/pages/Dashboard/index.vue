@@ -21,6 +21,9 @@ export default {
 		Drawer,
 		Content,
 	},
+	async mounted() {
+		await this.$store.dispatch('me')
+	},
 }
 </script>
 

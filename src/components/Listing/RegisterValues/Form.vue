@@ -61,6 +61,7 @@
 			</v-row>
 			<v-row>
 				<v-col md="6">
+					{{ category }}
 					<v-autocomplete
 						label="Categorias"
 						outlined
@@ -69,6 +70,9 @@
 						color="#508991"
 						hide-details
 						v-model="category"
+						:items="getCategoriesList"
+						item-value="id"
+						item-text="description"
 					/>
 				</v-col>
 				<v-col md="6">
@@ -138,15 +142,15 @@ export default {
 	}),
 	computed: {
 		...mapGetters({
-			getEmail: 'getEmail',
-			getLoadUsers: 'getLoadUsers',
+			getMe: 'getMe',
+			getCategoriesList: 'getCategoriesList',
 		}),
 		computedDateFormatted() {
 			return this.formatDate(this.date)
 		},
 	},
-	created() {
-		this.$store.dispatch('loadUsers', this.getEmail)
+	mounted() {
+		this.$store.dispatch('categoryList', this.getMe.id)
 	},
 	methods: {
 		formatDate(date) {
@@ -158,9 +162,10 @@ export default {
 		async registerValue() {
 			try {
 				const obj = {
-					userId: this.getLoadUsers.id,
+					userId: this.getMe.id,
 					description: this.description,
 					value: this.entry === true ? this.value : '-' + this.value,
+					categoryId: this.category,
 					date:
 						format(new Date(this.date), 'dd/MM/yyyy') ||
 						format(new Date().toLocaleDateString(), 'dd/MM/yyyy'),
@@ -171,7 +176,7 @@ export default {
 					message: 'Valor cadastrado com sucesso!',
 				})
 				this.clear()
-				this.$store.dispatch('handleValuesList', this.getLoadUsers.id)
+				this.$store.dispatch('handleValuesList', this.getMe.id)
 			} catch (e) {
 				this.$store.dispatch('setSnackbar', {
 					status: true,

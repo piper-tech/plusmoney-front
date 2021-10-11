@@ -9,8 +9,9 @@ export default new Vuex.Store({
 		snackbar: false,
 		snackbarMsg: '',
 		users: {},
-		email: '',
 		valuesList: [],
+		user: {},
+		categoriesList: [],
 	},
 
 	mutations: {
@@ -21,11 +22,14 @@ export default new Vuex.Store({
 		loadUsers(state, data) {
 			state.users = data
 		},
-		setEmail(state, date) {
-			state.email = date
-		},
 		setValuesList(state, data) {
 			state.valuesList = data
+		},
+		setMe(state, data) {
+			state.user = data
+		},
+		setCategoriesList(state, data) {
+			state.categoriesList = data
 		},
 	},
 
@@ -33,13 +37,24 @@ export default new Vuex.Store({
 		getSnackbar: (state) => state.snackbar,
 		getSnackbarMsg: (state) => state.snackbarMsg,
 		getLoadUsers: (state) => state.users,
-		getEmail: (state) => state.email,
 		getValuesList: (state) => state.valuesList,
+		getMe: (state) => state.user,
+		getCategoriesList: (state) => state.categoriesList,
 	},
 
 	actions: {
 		setSnackbar({ commit }, data) {
 			commit('setSnackbar', data)
+		},
+
+		async login(_, params) {
+			try {
+				const { data } = await loadFields.login(params)
+				window.localStorage.setItem('Authorization', data.accessToken)
+				return data
+			} catch (e) {
+				console.log(e)
+			}
 		},
 
 		async registerUser({ dispatch }, params) {
@@ -65,21 +80,19 @@ export default new Vuex.Store({
 			}
 		},
 
-		async loadUsers({ commit }, email) {
+		async me({ commit }) {
 			try {
-				const { data } = await loadFields.loadUsers(email)
-				commit('loadUsers', data)
+				const { data } = await loadFields.me()
+				commit('setMe', data)
 			} catch (e) {
 				console.log(e)
 			}
 		},
 
-		async login({ commit }, params) {
+		async loadUsers({ commit }, email) {
 			try {
-				const { data } = await loadFields.login(params)
-				window.localStorage.setItem('Authorization', data.accessToken)
-				commit('setEmail', params.email)
-				return data
+				const { data } = await loadFields.loadUsers(email)
+				commit('loadUsers', data)
 			} catch (e) {
 				console.log(e)
 			}
@@ -95,8 +108,25 @@ export default new Vuex.Store({
 
 		async handleValuesList({ commit }, userId) {
 			try {
-				const { data } = await loadFields.valuesList(userId)
+				const { data } = await loadFields.entriesList(userId)
 				commit('setValuesList', data)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async categoryList({ commit }, userId) {
+			try {
+				const { data } = await loadFields.categoriesList(userId)
+				commit('setCategoriesList', data)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async registerCategory(_, params) {
+			try {
+				await loadFields.registerCategory(params)
 			} catch (e) {
 				console.log(e)
 			}

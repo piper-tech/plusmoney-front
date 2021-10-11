@@ -19,17 +19,13 @@ import Cards from '@/components/Listing/Cards'
 import Graphic from '@/components/Listing/Graphic'
 import Listing from '@/components/Listing/Listing'
 export default {
-	created() {
-		this.$store.dispatch('loadUsers', this.getEmail)
-	},
 	mounted() {
-		this.$store.dispatch('handleValuesList', this.getLoadUsers.id)
+		this.$store.dispatch('handleValuesList', this.getMe.id)
 	},
 	computed: {
 		...mapGetters({
-			getEmail: 'getEmail',
-			getLoadUsers: 'getLoadUsers',
 			getValuesList: 'getValuesList',
+			getMe: 'getMe',
 		}),
 	},
 	components: {
