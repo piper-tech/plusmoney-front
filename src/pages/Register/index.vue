@@ -141,7 +141,7 @@ export default {
 					password: this.form.password,
 				}
 				await this.$store.dispatch('registerUser', obj)
-				// this.$router.push('/login')
+				this.$router.push({ name: 'Login' })
 
 				this.validate()
 				setTimeout(this.resetValidation, 3000)
