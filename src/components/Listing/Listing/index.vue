@@ -13,7 +13,7 @@
 				<div class="card__list__item__content">
 					<div class="card__list__item__content__box">
 						<figure class="card__list__item__content__box__figure">
-							<v-icon :color="item.icon === 'add' ? '#1BC200' : '#E30000'">{{
+							<v-icon :color="item.type === 'entry' ? '#1BC200' : '#E30000'">{{
 								item.type === 'entry' ? 'add' : 'remove'
 							}}</v-icon>
 						</figure>
