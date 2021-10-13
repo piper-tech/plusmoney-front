@@ -1,6 +1,6 @@
 <template>
 	<div class="cards">
-		<v-card class="cards__card" width="280px">
+		<v-card class="cards__card" width="320px">
 			<div class="cards__card__header">
 				<v-card-title class="cards__card__header__text">
 					<span class="cards__card__header__text__title">Entradas</span>
@@ -12,7 +12,7 @@
 			</v-card-title>
 		</v-card>
 
-		<v-card class="cards__card" width="280px">
+		<v-card class="cards__card" width="320px">
 			<div class="cards__card__header">
 				<v-card-title class="cards__card__header__text">
 					<span class="cards__card__header__text__title">Saídas</span>
@@ -24,7 +24,7 @@
 			</v-card-title>
 		</v-card>
 
-		<v-card class="cards__card" width="280px" color="#74B3CE">
+		<v-card class="cards__card" width="320px" color="#74B3CE">
 			<div class="cards__card__header">
 				<v-card-title class="cards__card__header__text">
 					<span

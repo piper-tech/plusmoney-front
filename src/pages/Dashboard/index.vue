@@ -2,7 +2,7 @@
 	<div class="dashboard">
 		<Appbar />
 		<Drawer />
-		<!-- <router-view name="dialog" /> -->
+		<router-view name="dialog" />
 		<v-main>
 			<Content>
 				<router-view />
@@ -20,6 +20,9 @@ export default {
 		Appbar,
 		Drawer,
 		Content,
+	},
+	async mounted() {
+		await this.$store.dispatch('me')
 	},
 }
 </script>
