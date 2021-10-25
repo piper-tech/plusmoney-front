@@ -24,7 +24,6 @@ export default new Vuex.Store({
 		},
 		setValuesList(state, data) {
 			state.valuesList = data
-			console.log(data, 'mutation')
 		},
 		setMe(state, data) {
 			state.user = data
@@ -111,7 +110,6 @@ export default new Vuex.Store({
 			try {
 				const { data } = await loadFields.entriesList(userId)
 				commit('setValuesList', data)
-				console.log(data, 'action')
 			} catch (e) {
 				console.log(e)
 			}

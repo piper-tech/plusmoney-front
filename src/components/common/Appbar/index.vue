@@ -27,6 +27,7 @@ export default {
 	},
 	methods: {
 		logout() {
+			window.localStorage.clear()
 			this.$router.push({ name: 'Login' })
 		},
 	},

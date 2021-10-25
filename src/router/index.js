@@ -24,6 +24,7 @@ const routes = [
 			{
 				path: '',
 				name: 'listagem',
+				meta: { requiresAuth: true },
 				component: () =>
 					import(
 						/* webpackChunkName: "listagem" */ '@/pages/Dashboard/Listing'
@@ -109,7 +110,10 @@ router.beforeEach((to, from, next) => {
 		if (window.localStorage.getItem('Authorization')) {
 			next()
 		} else {
-			next('/')
+			next({
+				path: '/',
+				params: { nextUrl: to.fullPath },
+			})
 		}
 	} else {
 		next()
