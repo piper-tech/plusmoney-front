@@ -2,7 +2,7 @@
 	<v-card class="card" width="530px">
 		<v-list class="card__list">
 			<v-list-item
-				v-for="(item, index) in getValuesList"
+				v-for="(item, index) in getValuesList.entries"
 				:key="index"
 				class="card__list__item"
 				@click="editListItem"
@@ -27,7 +27,10 @@
 						</div>
 					</div>
 					<span class="card__list__item__content__price"
-						>R$ {{ item.value }}</span
+						>R$
+						{{
+							item.value.toLocaleString('pt-br', { minimumFractionDigits: 2 })
+						}}</span
 					>
 				</div>
 			</v-list-item>
@@ -38,34 +41,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-	data: () => ({
-		list: [
-			{
-				id: 1,
-				date: '5 de setembro',
-				icon: 'add',
-				description: 'Salário Signa',
-				category: 'Vendas',
-				price: '2.000,00',
-			},
-			{
-				id: 2,
-				date: '11 de setembro',
-				icon: 'add',
-				description: 'Aluguel casa Paraíso',
-				category: 'Vendas',
-				price: '1.500,00',
-			},
-			{
-				id: 3,
-				date: '18 de setembro',
-				icon: 'remove',
-				description: 'Conta de água',
-				category: 'Casa',
-				price: '84,65',
-			},
-		],
-	}),
+	data: () => ({}),
 	computed: {
 		...mapGetters({
 			getValuesList: 'getValuesList',
