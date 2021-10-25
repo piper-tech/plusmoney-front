@@ -13,7 +13,7 @@
 					{{
 						getValuesList.resume.total_entries.toLocaleString('pt-br', {
 							minimumFractionDigits: 2,
-						}) || 0
+						})
 					}}</span
 				>
 			</v-card-title>
@@ -32,7 +32,7 @@
 					{{
 						getValuesList.resume.total_outputs.toLocaleString('pt-br', {
 							minimumFractionDigits: 2,
-						}) || 0
+						})
 					}}</span
 				>
 			</v-card-title>
@@ -57,7 +57,7 @@
 					{{
 						getValuesList.resume.total.toLocaleString('pt-br', {
 							minimumFractionDigits: 2,
-						}) || 0
+						})
 					}}</span
 				>
 			</v-card-title>

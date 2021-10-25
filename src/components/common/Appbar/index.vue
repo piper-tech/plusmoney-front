@@ -20,15 +20,17 @@ import { mapGetters } from 'vuex'
 import Content from '@/components/common/Content'
 export default {
 	computed: {
-		...mapGetters({ getMe: 'getMe' }),
+		...mapGetters({ getMe: 'getMe', getValuesList: 'getValuesList' }),
 	},
 	components: {
 		Content,
 	},
 	methods: {
-		logout() {
+		async logout() {
 			window.localStorage.clear()
+			await this.$store.dispatch('clearValuesList')
 			this.$router.push({ name: 'Login' })
+			console.log(this.getValuesList, 'ValuesLIst')
 		},
 	},
 }
