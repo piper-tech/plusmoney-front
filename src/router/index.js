@@ -17,6 +17,7 @@ const routes = [
 	},
 	{
 		path: '/listagem',
+		meta: { requiresAuth: true },
 		component: () =>
 			import(/* webpackChunkName: "dashboard_index" */ '@/pages/Dashboard'),
 		children: [
@@ -101,6 +102,18 @@ const router = new VueRouter({
 	mode: 'history',
 	base: process.env.BASE_URL,
 	routes,
+})
+
+router.beforeEach((to, from, next) => {
+	if (to.matched.some((record) => record.meta.requiresAuth)) {
+		if (window.localStorage.getItem('token')) {
+			next()
+		} else {
+			next('/')
+		}
+	} else {
+		next()
+	}
 })
 
 export default router
