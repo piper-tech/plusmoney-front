@@ -90,7 +90,7 @@
 				</v-row>
 				<v-row class="d-flex justify-center mt-0">
 					<v-col md="3">
-						<v-btn color="#508991" large outlined class="button" to="/login"
+						<v-btn color="#508991" large outlined class="button" to="/"
 							>Fazer login</v-btn
 						>
 					</v-col>
@@ -141,8 +141,20 @@ export default {
 					password: this.form.password,
 				}
 				await this.$store.dispatch('registerUser', obj)
-				this.$router.push({ name: 'Login' })
 
+				const objLogup = {
+					email: this.form.email,
+					password: this.form.password,
+				}
+				if (this.form.password === this.form.confirmPassword) {
+					await this.$store.dispatch('login', objLogup)
+					this.$router.push('/listagem')
+				} else {
+					this.$store.dispatch('setSnackbar', {
+						status: true,
+						message: 'Senhas não conferem',
+					})
+				}
 				this.validate()
 				setTimeout(this.resetValidation, 3000)
 			} catch (e) {

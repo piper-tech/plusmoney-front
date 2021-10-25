@@ -19,9 +19,6 @@ import Cards from '@/components/Listing/Cards'
 import Graphic from '@/components/Listing/Graphic'
 import Listing from '@/components/Listing/Listing'
 export default {
-	mounted() {
-		this.$store.dispatch('handleValuesList', this.getMe.id)
-	},
 	computed: {
 		...mapGetters({
 			getValuesList: 'getValuesList',

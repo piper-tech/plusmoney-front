@@ -17,12 +17,14 @@ const routes = [
 	},
 	{
 		path: '/listagem',
+		meta: { requiresAuth: true },
 		component: () =>
 			import(/* webpackChunkName: "dashboard_index" */ '@/pages/Dashboard'),
 		children: [
 			{
 				path: '',
 				name: 'listagem',
+				meta: { requiresAuth: true },
 				component: () =>
 					import(
 						/* webpackChunkName: "listagem" */ '@/pages/Dashboard/Listing'
@@ -101,6 +103,21 @@ const router = new VueRouter({
 	mode: 'history',
 	base: process.env.BASE_URL,
 	routes,
+})
+
+router.beforeEach((to, from, next) => {
+	if (to.matched.some((record) => record.meta.requiresAuth)) {
+		if (window.localStorage.getItem('Authorization')) {
+			next()
+		} else {
+			next({
+				path: '/',
+				params: { nextUrl: to.fullPath },
+			})
+		}
+	} else {
+		next()
+	}
 })
 
 export default router

@@ -8,7 +8,14 @@
 				<v-icon color="#09BC8A" size="35">arrow_circle_up</v-icon>
 			</div>
 			<v-card-title>
-				<span>R$ 12.345,98</span>
+				<span
+					>R$
+					{{
+						getValuesList.resume.total_entries.toLocaleString('pt-br', {
+							minimumFractionDigits: 2,
+						})
+					}}</span
+				>
 			</v-card-title>
 		</v-card>
 
@@ -20,7 +27,14 @@
 				<v-icon color="#E30000" size="35">arrow_circle_down</v-icon>
 			</div>
 			<v-card-title>
-				<span>R$ 5.983,74</span>
+				<span
+					>R$
+					{{
+						getValuesList.resume.total_outputs.toLocaleString('pt-br', {
+							minimumFractionDigits: 2,
+						})
+					}}</span
+				>
 			</v-card-title>
 		</v-card>
 
@@ -30,7 +44,7 @@
 					<span
 						class="cards__card__header__text__title"
 						:style="{ color: '#fff' }"
-						>Saídas</span
+						>Total</span
 					>
 				</v-card-title>
 				<v-icon color="#fff" size="35" class="material-icons-outlined"
@@ -38,11 +52,30 @@
 				>
 			</div>
 			<v-card-title>
-				<span :style="{ color: '#fff' }">R$ 5.983,74</span>
+				<span :style="{ color: '#fff' }"
+					>R$
+					{{
+						getValuesList.resume.total.toLocaleString('pt-br', {
+							minimumFractionDigits: 2,
+						})
+					}}</span
+				>
 			</v-card-title>
 		</v-card>
 	</div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+export default {
+	computed: {
+		...mapGetters({
+			getValuesList: 'getValuesList',
+			getMe: 'getMe',
+		}),
+	},
+}
+</script>
 
 <style lang="scss" scoped>
 .cards {

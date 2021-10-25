@@ -9,7 +9,7 @@ export default new Vuex.Store({
 		snackbar: false,
 		snackbarMsg: '',
 		users: {},
-		valuesList: [],
+		valuesList: {},
 		user: {},
 		categoriesList: [],
 	},
@@ -31,6 +31,12 @@ export default new Vuex.Store({
 		setCategoriesList(state, data) {
 			state.categoriesList = data
 		},
+		setClearValuesList(state) {
+			state.valuesList = {}
+		},
+		setClearUser(state) {
+			state.user = {}
+		},
 	},
 
 	getters: {
@@ -47,8 +53,9 @@ export default new Vuex.Store({
 			commit('setSnackbar', data)
 		},
 
-		async login(_, params) {
+		async login({ dispatch }, params) {
 			try {
+				dispatch('clearValuesList', { root: true })
 				const { data } = await loadFields.login(params)
 				window.localStorage.setItem('Authorization', data.accessToken)
 				return data
@@ -130,6 +137,14 @@ export default new Vuex.Store({
 			} catch (e) {
 				console.log(e)
 			}
+		},
+
+		clearValuesList({ commit }) {
+			commit('setClearValuesList')
+		},
+
+		clearUser({ commit }) {
+			commit('setClearUser')
 		},
 	},
 })

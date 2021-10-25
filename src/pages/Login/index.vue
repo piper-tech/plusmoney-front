@@ -99,7 +99,7 @@ export default {
 				}
 				this.validate()
 				if (this.form.email !== '' && this.form.password !== '') {
-					this.$store.dispatch('login', obj)
+					await this.$store.dispatch('login', obj)
 					this.$router.push('/listagem')
 				} else {
 					this.$store.dispatch('setSnackbar', {

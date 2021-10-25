@@ -1,6 +1,6 @@
 <template>
 	<div class="header">
-		<h1 class="header__title">Listagem</h1>
+		<h1 class="header__title">Dashboard</h1>
 		<v-btn
 			depressed
 			outlined
