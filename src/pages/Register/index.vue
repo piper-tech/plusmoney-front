@@ -90,7 +90,7 @@
 				</v-row>
 				<v-row class="d-flex justify-center mt-0">
 					<v-col md="3">
-						<v-btn color="#508991" large outlined class="button" to="/login"
+						<v-btn color="#508991" large outlined class="button" to="/"
 							>Fazer login</v-btn
 						>
 					</v-col>
