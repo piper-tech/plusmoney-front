@@ -29,8 +29,8 @@ export default {
 		async logout() {
 			window.localStorage.clear()
 			await this.$store.dispatch('clearValuesList')
+			await this.$store.dispatch('clearUser')
 			this.$router.push({ name: 'Login' })
-			console.log(this.getValuesList, 'ValuesLIst')
 		},
 	},
 }

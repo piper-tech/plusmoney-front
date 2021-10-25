@@ -34,6 +34,9 @@ export default new Vuex.Store({
 		setClearValuesList(state) {
 			state.valuesList = {}
 		},
+		setClearUser(state) {
+			state.user = {}
+		},
 	},
 
 	getters: {
@@ -138,6 +141,10 @@ export default new Vuex.Store({
 
 		clearValuesList({ commit }) {
 			commit('setClearValuesList')
+		},
+
+		clearUser({ commit }) {
+			commit('setClearUser')
 		},
 	},
 })

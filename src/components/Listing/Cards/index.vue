@@ -74,18 +74,6 @@ export default {
 			getMe: 'getMe',
 		}),
 	},
-	watch: {
-		getMe() {
-			if (this.getMe.id) {
-				this.$store.dispatch('handleValuesList', this.getMe.id)
-			}
-		},
-	},
-	mounted() {
-		if (this.getMe.id) {
-			this.$store.dispatch('handleValuesList', this.getMe.id)
-		}
-	},
 }
 </script>
 
