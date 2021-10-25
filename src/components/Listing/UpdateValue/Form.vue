@@ -43,7 +43,6 @@
 						<v-icon class="mr-2">arrow_circle_up</v-icon>
 						Entrada
 					</v-btn>
-					{{ entry }}
 				</v-col>
 				<v-col md="6">
 					<v-btn
@@ -58,7 +57,6 @@
 						<v-icon class="mr-2">arrow_circle_down</v-icon>
 						Saída
 					</v-btn>
-					{{ output }}
 				</v-col>
 			</v-row>
 			<v-row>
@@ -106,7 +104,6 @@
 						/>
 					</v-menu>
 				</v-col>
-				{{ date }}
 			</v-row>
 		</div>
 		<v-card-actions

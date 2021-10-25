@@ -1,7 +1,6 @@
 <template>
 	<v-card class="card" width="530px">
 		<v-list class="card__list">
-			{{ getValuesList }}
 			<v-list-item
 				v-for="(item, index) in getValuesList.entries"
 				:key="index"
