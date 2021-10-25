@@ -106,7 +106,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 	if (to.matched.some((record) => record.meta.requiresAuth)) {
-		if (window.localStorage.getItem('token')) {
+		if (window.localStorage.getItem('Authorization')) {
 			next()
 		} else {
 			next('/')

@@ -19,10 +19,10 @@
 						</figure>
 						<div class="card__list__item__content__box__text">
 							<span class="card__list__item__content__box__text__description">{{
-								item.description
+								item.category.description
 							}}</span>
 							<span class="card__list__item__content__box__text__category">{{
-								item.category.description
+								item.description
 							}}</span>
 						</div>
 					</div>
