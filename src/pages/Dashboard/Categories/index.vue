@@ -27,7 +27,8 @@ export default {
 
 <style lang="scss" scoped>
 .category {
-	width: 100%;
+	/* width: 100%; */
+
 	&__content {
 		display: flex;
 	}
