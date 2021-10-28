@@ -1,7 +1,6 @@
 <template>
 	<v-form class="form">
 		<div class="form__content">
-			{{ item }}
 			<v-row>
 				<v-col md="12">
 					<v-text-field
@@ -134,7 +133,7 @@
 </template>
 
 <script>
-import { format } from 'date-fns'
+// import { format } from 'date-fns'
 import { mapGetters } from 'vuex'
 export default {
 	data: () => ({
@@ -187,32 +186,32 @@ export default {
 				this.form[item] = this.item[item]
 			})
 		},
-		async updateValue() {
-			try {
-				const obj = {
-					userId: this.getMe.id,
-					description: this.form.description,
-					value:
-						this.form.entry === true ? this.form.value : '-' + this.form.value,
-					categoryId: this.form.category.id,
-					date:
-						format(new Date(this.form.date), 'dd/MM/yyyy') ||
-						format(new Date().toLocaleDateString(), 'dd/MM/yyyy'),
-				}
-				await this.$store.dispatch('updateValue', this.item.id, obj)
-				// this.$store.dispatch('setSnackbar', {
-				// 	status: true,
-				// 	message: 'Valor atualizado com sucesso!',
-				// })
-				this.clear()
-				this.$store.dispatch('handleValuesList', this.getMe.id)
-			} catch (e) {
-				this.$store.dispatch('setSnackbar', {
-					status: true,
-					message: 'Algo deu errado, tente novamente',
-				})
-			}
-		},
+		// async updateValue() {
+		// 	try {
+		// 		const obj = {
+		// 			userId: this.getMe.id,
+		// 			description: this.form.description,
+		// 			value:
+		// 				this.form.entry === true ? this.form.value : '-' + this.form.value,
+		// 			categoryId: this.form.category.id,
+		// 			date:
+		// 				format(new Date(this.form.date), 'dd/MM/yyyy') ||
+		// 				format(new Date().toLocaleDateString(), 'dd/MM/yyyy'),
+		// 		}
+		// 		await this.$store.dispatch('updateValue', this.item.id, obj)
+		// 		this.$store.dispatch('setSnackbar', {
+		// 			status: true,
+		// 			message: 'Valor atualizado com sucesso!',
+		// 		})
+		// 		this.clear()
+		// 		this.$store.dispatch('handleValuesList', this.getMe.id)
+		// 	} catch (e) {
+		// 		this.$store.dispatch('setSnackbar', {
+		// 			status: true,
+		// 			message: 'Algo deu errado, tente novamente',
+		// 		})
+		// 	}
+		// },
 		clear() {
 			this.date = null
 			this.description = ''
