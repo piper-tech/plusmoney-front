@@ -61,7 +61,6 @@
 			</v-row>
 			<v-row>
 				<v-col md="6">
-					{{ category }}
 					<v-autocomplete
 						label="Categorias"
 						outlined

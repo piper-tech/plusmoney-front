@@ -11,7 +11,7 @@
 						prepend-inner-icon="add"
 						color="#508991"
 						hide-details
-						v-model="description"
+						v-model="form.description"
 					/>
 				</v-col>
 			</v-row>
@@ -25,7 +25,7 @@
 						prepend-inner-icon="attach_money"
 						color="#508991"
 						hide-details
-						v-model="value"
+						v-model="form.value"
 					/>
 				</v-col>
 			</v-row>
@@ -37,8 +37,10 @@
 						depressed
 						width="100%"
 						height="50px"
-						:class="entry === true && output === false ? 'active-entry' : ''"
-						@click="entry = !entry"
+						:class="
+							form.entry === true && form.output === false ? 'active-entry' : ''
+						"
+						@click="form.entry = !form.entry"
 					>
 						<v-icon class="mr-2">arrow_circle_up</v-icon>
 						Entrada
@@ -51,8 +53,12 @@
 						depressed
 						width="100%"
 						height="50px"
-						:class="output === true && entry === false ? 'active-output' : ''"
-						@click="output = !output"
+						:class="
+							form.output === true && form.entry === false
+								? 'active-output'
+								: ''
+						"
+						@click="form.output = !form.output"
 					>
 						<v-icon class="mr-2">arrow_circle_down</v-icon>
 						Saída
@@ -68,12 +74,15 @@
 						prepend-inner-icon="category"
 						color="#508991"
 						hide-details
-						v-model="category"
+						v-model="form.category"
+						:items="getCategoriesList"
+						item-value="id"
+						item-text="description"
 					/>
 				</v-col>
 				<v-col md="6">
 					<v-menu
-						v-model="menu"
+						v-model="form.menu"
 						:close-on-content-click="false"
 						transition="scale-transition"
 						offset-y
@@ -88,19 +97,19 @@
 								persistent-hint
 								outlined
 								clearable
-								@click:clear="date = null"
+								@click:clear="form.date = null"
 								prepend-inner-icon="mdi-calendar"
 								readonly
 								v-bind="attrs"
 								v-on="on"
-							></v-text-field>
+							/>
 						</template>
 						<v-date-picker
-							v-model="date"
+							v-model="form.date"
 							color="#508991"
 							locale="pt"
 							no-title
-							@input="menu = false"
+							@input="form.menu = false"
 						/>
 					</v-menu>
 				</v-col>
@@ -111,33 +120,57 @@
 			style="display: flex; justify-content: flex-end"
 		>
 			<v-btn
-				@click="registerValue"
+				@click="updateValue"
 				color="#508991"
 				dark
 				depressed
 				height="45px"
 				width="125px"
-				>Editar</v-btn
+				>Cadastrar</v-btn
 			>
 		</v-card-actions>
 	</v-form>
 </template>
 
 <script>
-import { format } from 'date-fns'
+// import { format } from 'date-fns'
+import { mapGetters } from 'vuex'
 export default {
 	data: () => ({
-		menu: false,
-		date: null,
-		description: '',
-		value: '',
-		category: '',
-		entry: false,
-		output: false,
+		form: {
+			menu: false,
+			date: null,
+			description: '',
+			value: '',
+			category: '',
+			entry: false,
+			output: false,
+		},
 	}),
+	props: {
+		item: {
+			type: Object,
+		},
+	},
 	computed: {
+		...mapGetters({
+			getMe: 'getMe',
+			getCategoriesList: 'getCategoriesList',
+		}),
 		computedDateFormatted() {
 			return this.formatDate(this.date)
+		},
+	},
+	mounted() {
+		this.$store.dispatch('categoryList', this.getMe.id)
+		this.populateFields()
+	},
+	watch: {
+		item: {
+			deep: true,
+			handler() {
+				this.populateFields()
+			},
 		},
 	},
 	methods: {
@@ -147,14 +180,45 @@ export default {
 			const [year, month, day] = date.split('-')
 			return `${day}/${month}/${year}`
 		},
-		async registerValue() {
-			const obj = {
-				description: this.description,
-				value: this.entry === true ? this.value : '-' + this.value,
-				dateEntry:
-					format(new Date(this.date)) || format(new Date(), 'dd/MM/yyyy'),
-			}
-			await this.$store.dispatch('registerValue', obj)
+		populateFields() {
+			const arr = Object.keys(this.form)
+			arr.map((item) => {
+				this.form[item] = this.item[item]
+			})
+		},
+		// async updateValue() {
+		// 	try {
+		// 		const obj = {
+		// 			userId: this.getMe.id,
+		// 			description: this.form.description,
+		// 			value:
+		// 				this.form.entry === true ? this.form.value : '-' + this.form.value,
+		// 			categoryId: this.form.category.id,
+		// 			date:
+		// 				format(new Date(this.form.date), 'dd/MM/yyyy') ||
+		// 				format(new Date().toLocaleDateString(), 'dd/MM/yyyy'),
+		// 		}
+		// 		await this.$store.dispatch('updateValue', this.item.id, obj)
+		// 		this.$store.dispatch('setSnackbar', {
+		// 			status: true,
+		// 			message: 'Valor atualizado com sucesso!',
+		// 		})
+		// 		this.clear()
+		// 		this.$store.dispatch('handleValuesList', this.getMe.id)
+		// 	} catch (e) {
+		// 		this.$store.dispatch('setSnackbar', {
+		// 			status: true,
+		// 			message: 'Algo deu errado, tente novamente',
+		// 		})
+		// 	}
+		// },
+		clear() {
+			this.date = null
+			this.description = ''
+			this.value = ''
+			this.category = ''
+			this.entry = false
+			this.output = false
 		},
 	},
 }
@@ -164,6 +228,7 @@ export default {
 .form {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 }
 
 .active-entry {

@@ -5,7 +5,7 @@
 				v-for="(item, index) in getValuesList.entries"
 				:key="index"
 				class="card__list__item"
-				@click="editListItem"
+				@click="editItem(item)"
 			>
 				<div class="card__list__item__date">
 					<span class="card__list__item__date__text">{{ item.date }}</span>
@@ -41,7 +41,9 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-	data: () => ({}),
+	data: () => ({
+		item: {},
+	}),
 	computed: {
 		...mapGetters({
 			getValuesList: 'getValuesList',
@@ -55,17 +57,14 @@ export default {
 			}
 		},
 	},
-	// mounted() {
-	// 	if (this.getMe.id) {
-	// 		this.$store.dispatch('handleValuesList', this.getMe.id)
-	// 	}
-	// },
 	methods: {
-		editListItem() {
+		editItem(item) {
+			this.item = item
 			this.$router.push({
 				name: 'listagem-editar',
 				params: {
-					id: this.getValuesList.id,
+					id: this.item.id,
+					item: this.item,
 				},
 			})
 		},

@@ -9,7 +9,7 @@
 				</v-btn>
 			</v-card-title>
 			<v-card-text class="card__text">
-				<Form />
+				<Form :item="itemUpdate" />
 			</v-card-text>
 		</v-card>
 	</v-navigation-drawer>
@@ -20,11 +20,14 @@ import Form from '@/components/Listing/UpdateValue/Form'
 export default {
 	data: () => ({
 		dialog: false,
+		itemUpdate: {},
 	}),
 	components: {
 		Form,
 	},
 	mounted() {
+		this.itemUpdate = this.$route.params.item
+
 		setTimeout(() => {
 			this.dialog = true
 		}, 300)
