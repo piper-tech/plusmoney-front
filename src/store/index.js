@@ -113,6 +113,14 @@ export default new Vuex.Store({
 			}
 		},
 
+		async updateValue(_, id, params) {
+			try {
+				await loadFields.updateValue(id, params)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
 		async handleValuesList({ commit }, userId) {
 			try {
 				const { data } = await loadFields.entriesList(userId)

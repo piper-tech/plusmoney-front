@@ -45,7 +45,7 @@ const routes = [
 				},
 			},
 			{
-				path: '/listagem/editar/',
+				path: '/listagem/editar/:id',
 				name: 'listagem-editar',
 				components: {
 					default: () =>
