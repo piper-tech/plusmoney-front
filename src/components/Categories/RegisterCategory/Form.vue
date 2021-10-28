@@ -56,6 +56,7 @@ export default {
 					status: true,
 					message: 'Categoria cadastrada com sucesso!',
 				})
+				await this.$store.dispatch('categoryList', this.getMe.id)
 				this.$router.go('-1')
 			} catch (e) {
 				console.log(e)

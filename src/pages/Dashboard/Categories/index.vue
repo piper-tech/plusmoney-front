@@ -1,25 +1,25 @@
 <template>
 	<div class="category">
 		<Header />
-		<div class="category__content">
+		<!-- <div class="category__content">
 			<Search />
 			<Actions />
-		</div>
+		</div> -->
 		<Table />
 	</div>
 </template>
 
 <script>
 import Header from '@/components/Categories/Header'
-import Search from '@/components/Categories/Search'
-import Actions from '@/components/Categories/Actions'
+// import Search from '@/components/Categories/Search'
+// import Actions from '@/components/Categories/Actions'
 import Table from '@/components/Categories/Table'
 export default {
 	data: () => ({}),
 	components: {
 		Header,
-		Search,
-		Actions,
+		// Search,
+		// Actions,
 		Table,
 	},
 }
@@ -27,6 +27,7 @@ export default {
 
 <style lang="scss" scoped>
 .category {
+	width: 100%;
 	&__content {
 		display: flex;
 	}

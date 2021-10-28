@@ -1,7 +1,7 @@
 <template>
 	<v-card class="card">
 		<v-card-title>
-			Casa
+			Todas as categorias
 			<v-spacer />
 			<v-spacer />
 			<v-text-field
@@ -12,48 +12,48 @@
 				hide-details
 			/>
 		</v-card-title>
-		<v-data-table :headers="headers" :items="desserts" :search="search" />
+		<v-data-table
+			:headers="headers"
+			:items="getCategoriesList"
+			:search="search"
+		/>
 	</v-card>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
 	data() {
 		return {
 			search: '',
 			headers: [
 				{
-					text: 'Descrição',
-					align: 'start',
-					sortable: false,
+					text: 'Nome',
 					value: 'description',
-				},
-				{ text: 'Data', value: 'date' },
-				{ text: 'Valor', value: 'amount' },
-			],
-			desserts: [
-				{
-					description: 'Aluguel',
-					date: '05/09/2021',
-					amount: 'R$2.350,00',
-				},
-				{
-					description: 'Conta de água',
-					date: '08/09/2021',
-					amount: 'R$76,00',
-				},
-				{
-					description: 'Conta de água',
-					date: '08/09/2021',
-					amount: 'R$76,00',
-				},
-				{
-					description: 'Compras do mês',
-					date: '01/09/2021',
-					amount: 'R$730,00',
 				},
 			],
 		}
+	},
+	watch: {
+		getMe() {
+			if (this.getMe.id) {
+				this.$store.dispatch('categoryList', this.getMe.id)
+			}
+		},
+	},
+	mounted() {
+		if (this.getMe.id) {
+			this.$store.dispatch('categoryList', this.getMe.id)
+		}
+	},
+	computed: {
+		...mapGetters({
+			getMe: 'getMe',
+			getCategoriesList: 'getCategoriesList',
+		}),
+		computedDateFormatted() {
+			return this.formatDate(this.date)
+		},
 	},
 }
 </script>
