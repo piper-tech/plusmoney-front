@@ -113,9 +113,10 @@ export default new Vuex.Store({
 			}
 		},
 
-		async updateValue(_, id, params) {
+		async updateValue(_, { id, payload }) {
 			try {
-				await loadFields.updateValue(id, params)
+				console.log(id, payload, 'action')
+				await loadFields.updateValue(id, payload)
 			} catch (e) {
 				console.log(e)
 			}

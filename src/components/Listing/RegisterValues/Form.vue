@@ -37,8 +37,8 @@
 						depressed
 						width="100%"
 						height="50px"
-						:class="entry === true && output === false ? 'active-entry' : ''"
-						@click="entry = !entry"
+						:class="type === 'entry' ? 'active-entry' : ''"
+						@click="type = 'entry'"
 					>
 						<v-icon class="mr-2">arrow_circle_up</v-icon>
 						Entrada
@@ -51,8 +51,8 @@
 						depressed
 						width="100%"
 						height="50px"
-						:class="output === true && entry === false ? 'active-output' : ''"
-						@click="output = !output"
+						:class="type === 'output' ? 'active-output' : ''"
+						@click="type = 'output'"
 					>
 						<v-icon class="mr-2">arrow_circle_down</v-icon>
 						Saída
@@ -75,6 +75,7 @@
 					/>
 				</v-col>
 				<v-col md="6">
+					{{ date }}
 					<v-menu
 						v-model="menu"
 						:close-on-content-click="false"
@@ -136,8 +137,7 @@ export default {
 		description: '',
 		value: '',
 		category: '',
-		entry: false,
-		output: false,
+		type: 'entry',
 	}),
 	computed: {
 		...mapGetters({
@@ -163,7 +163,7 @@ export default {
 				const obj = {
 					userId: this.getMe.id,
 					description: this.description,
-					value: this.entry === true ? this.value : '-' + this.value,
+					value: this.type === 'entry' ? this.value : '-' + this.value,
 					categoryId: this.category,
 					date:
 						format(new Date(this.date), 'dd/MM/yyyy') ||
@@ -177,6 +177,7 @@ export default {
 				this.clear()
 				this.$store.dispatch('handleValuesList', this.getMe.id)
 			} catch (e) {
+				console.log(e, 'eeee')
 				this.$store.dispatch('setSnackbar', {
 					status: true,
 					message: 'Algo deu errado, tente novamente',

@@ -37,10 +37,8 @@
 						depressed
 						width="100%"
 						height="50px"
-						:class="
-							form.entry === true && form.output === false ? 'active-entry' : ''
-						"
-						@click="form.entry = !form.entry"
+						:class="form.type === 'entry' ? 'active-entry' : ''"
+						@click="form.type = 'entry'"
 					>
 						<v-icon class="mr-2">arrow_circle_up</v-icon>
 						Entrada
@@ -53,12 +51,8 @@
 						depressed
 						width="100%"
 						height="50px"
-						:class="
-							form.output === true && form.entry === false
-								? 'active-output'
-								: ''
-						"
-						@click="form.output = !form.output"
+						:class="form.type === 'output' ? 'active-output' : ''"
+						@click="form.type = 'output'"
 					>
 						<v-icon class="mr-2">arrow_circle_down</v-icon>
 						Saída
@@ -82,7 +76,7 @@
 				</v-col>
 				<v-col md="6">
 					<v-menu
-						v-model="form.menu"
+						v-model="menu"
 						:close-on-content-click="false"
 						transition="scale-transition"
 						offset-y
@@ -92,7 +86,7 @@
 						<template v-slot:activator="{ on, attrs }">
 							<v-text-field
 								color="#508991"
-								v-model="computedDateFormatted"
+								:value="computedDateFormatted"
 								label="Data"
 								persistent-hint
 								outlined
@@ -109,42 +103,42 @@
 							color="#508991"
 							locale="pt"
 							no-title
-							@input="form.menu = false"
+							@input="menu = false"
 						/>
 					</v-menu>
 				</v-col>
 			</v-row>
+			{{ item }} - {{ form }}
 		</div>
 		<v-card-actions
 			class="form__actions pr-0"
 			style="display: flex; justify-content: flex-end"
 		>
 			<v-btn
-				@click="updateValue"
 				color="#508991"
 				dark
 				depressed
 				height="45px"
 				width="125px"
-				>Cadastrar</v-btn
+				@click="updateValue"
+				>Editar</v-btn
 			>
 		</v-card-actions>
 	</v-form>
 </template>
 
 <script>
-// import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import { mapGetters } from 'vuex'
 export default {
 	data: () => ({
+		menu: false,
 		form: {
-			menu: false,
-			date: null,
+			date: format(new Date(), 'yyyy-MM-dd'),
 			description: '',
 			value: '',
 			category: '',
-			entry: false,
-			output: false,
+			type: 'entry',
 		},
 	}),
 	props: {
@@ -158,7 +152,7 @@ export default {
 			getCategoriesList: 'getCategoriesList',
 		}),
 		computedDateFormatted() {
-			return this.formatDate(this.date)
+			return this.formatDate(this.form.date)
 		},
 	},
 	mounted() {
@@ -177,41 +171,52 @@ export default {
 		formatDate(date) {
 			if (!date) return null
 
-			const [year, month, day] = date.split('-')
-			return `${day}/${month}/${year}`
+			return format(parseISO(date), 'dd/MM/yyyy')
 		},
 		populateFields() {
+			if (Object.keys(this.item).length === 0) return
+			console.log(this.item, this.form)
 			const arr = Object.keys(this.form)
 			arr.map((item) => {
-				this.form[item] = this.item[item]
+				if (item === 'date') {
+					const [dia, mes, ano] = this.item[item].split('/')
+					this.form.date = format(
+						parseISO(`${ano}-${mes}-${dia}`),
+						'yyyy-MM-dd'
+					)
+				} else {
+					this.form[item] = this.item[item]
+				}
 			})
 		},
-		// async updateValue() {
-		// 	try {
-		// 		const obj = {
-		// 			userId: this.getMe.id,
-		// 			description: this.form.description,
-		// 			value:
-		// 				this.form.entry === true ? this.form.value : '-' + this.form.value,
-		// 			categoryId: this.form.category.id,
-		// 			date:
-		// 				format(new Date(this.form.date), 'dd/MM/yyyy') ||
-		// 				format(new Date().toLocaleDateString(), 'dd/MM/yyyy'),
-		// 		}
-		// 		await this.$store.dispatch('updateValue', this.item.id, obj)
-		// 		this.$store.dispatch('setSnackbar', {
-		// 			status: true,
-		// 			message: 'Valor atualizado com sucesso!',
-		// 		})
-		// 		this.clear()
-		// 		this.$store.dispatch('handleValuesList', this.getMe.id)
-		// 	} catch (e) {
-		// 		this.$store.dispatch('setSnackbar', {
-		// 			status: true,
-		// 			message: 'Algo deu errado, tente novamente',
-		// 		})
-		// 	}
-		// },
+		async updateValue() {
+			try {
+				const payload = {
+					userId: this.getMe.id,
+					description: this.form.description,
+					value: this.form.value,
+					categoryId: this.form.category.id,
+					date: format(parseISO(this.form.date), 'dd/MM/yyyy'),
+				}
+
+				await this.$store.dispatch('updateValue', {
+					id: this.item.id,
+					payload,
+				})
+
+				this.$store.dispatch('setSnackbar', {
+					status: true,
+					message: 'Valor atualizado com sucesso!',
+				})
+				this.clear()
+				this.$store.dispatch('handleValuesList', this.getMe.id)
+			} catch (e) {
+				this.$store.dispatch('setSnackbar', {
+					status: true,
+					message: 'Algo deu errado, tente novamente',
+				})
+			}
+		},
 		clear() {
 			this.date = null
 			this.description = ''

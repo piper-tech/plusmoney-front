@@ -1,8 +1,8 @@
 <template>
 	<v-card class="card" width="530px">
-		<v-list class="card__list">
+		<v-list class="card__list" v-if="getValuesList.entries.length > 0">
 			<v-list-item
-				v-for="(item, index) in getValuesList.entries"
+				v-for="(item, index) in items"
 				:key="index"
 				class="card__list__item"
 				@click="editItem(item)"
@@ -35,20 +35,36 @@
 				</div>
 			</v-list-item>
 		</v-list>
+		<div class="card__lottie" v-else>
+			<lottie-animation
+				:loop="true"
+				ref="anim"
+				:animationData="require('@/assets/no-entries.json')"
+			/>
+			<span class="card__lottie__text">Ainda não possui registros.</span>
+		</div>
 	</v-card>
 </template>
 
 <script>
+import LottieAnimation from 'lottie-web-vue'
 import { mapGetters } from 'vuex'
 export default {
 	data: () => ({
 		item: {},
 	}),
+	components: {
+		LottieAnimation,
+	},
 	computed: {
 		...mapGetters({
 			getValuesList: 'getValuesList',
 			getMe: 'getMe',
 		}),
+		items() {
+			if (!this.getValuesList.entries) return []
+			return this.getValuesList.entries
+		},
 	},
 	watch: {
 		getMe() {
@@ -77,6 +93,17 @@ export default {
 	padding: 15px;
 	max-height: 500px;
 	overflow-y: scroll;
+	&__lottie {
+		width: 300px;
+		margin: auto;
+		padding: 30px 0;
+		height: 100%;
+		text-align: center;
+		&__text {
+			font-size: 18px;
+			color: #868686;
+		}
+	}
 	&__list {
 		width: 100%;
 		&__item {
