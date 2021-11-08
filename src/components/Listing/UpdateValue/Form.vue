@@ -108,7 +108,6 @@
 					</v-menu>
 				</v-col>
 			</v-row>
-			{{ item }} - {{ form }}
 		</div>
 		<v-card-actions
 			class="form__actions pr-0"
@@ -210,6 +209,7 @@ export default {
 				})
 				this.clear()
 				this.$store.dispatch('handleValuesList', this.getMe.id)
+				this.$router.go('-1')
 			} catch (e) {
 				this.$store.dispatch('setSnackbar', {
 					status: true,

@@ -75,7 +75,6 @@
 					/>
 				</v-col>
 				<v-col md="6">
-					{{ date }}
 					<v-menu
 						v-model="menu"
 						:close-on-content-click="false"
@@ -108,6 +107,7 @@
 						/>
 					</v-menu>
 				</v-col>
+				{{ getMe }}
 			</v-row>
 		</div>
 		<v-card-actions
@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import { mapGetters } from 'vuex'
 export default {
 	data: () => ({
@@ -146,6 +146,14 @@ export default {
 		}),
 		computedDateFormatted() {
 			return this.formatDate(this.date)
+		},
+		currentDate() {
+			const date = new Date()
+			const day = String(date.getDate()).padStart(2, '0')
+			const mounth = String(date.getMonth() + 1).padStart(2, '0')
+			const year = date.getFullYear()
+			const currentDate = day + '/' + mounth + '/' + year
+			return currentDate
 		},
 	},
 	mounted() {
@@ -165,9 +173,7 @@ export default {
 					description: this.description,
 					value: this.type === 'entry' ? this.value : '-' + this.value,
 					categoryId: this.category,
-					date:
-						format(new Date(this.date), 'dd/MM/yyyy') ||
-						format(new Date().toLocaleDateString(), 'dd/MM/yyyy'),
+					date: format(parseISO(this.date), 'dd/MM/yyyy') || this.currentDate,
 				}
 				await this.$store.dispatch('registerValue', obj)
 				this.$store.dispatch('setSnackbar', {
@@ -176,8 +182,8 @@ export default {
 				})
 				this.clear()
 				this.$store.dispatch('handleValuesList', this.getMe.id)
+				this.$router.go('-1')
 			} catch (e) {
-				console.log(e, 'eeee')
 				this.$store.dispatch('setSnackbar', {
 					status: true,
 					message: 'Algo deu errado, tente novamente',
