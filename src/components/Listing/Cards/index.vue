@@ -11,7 +11,7 @@
 				<span
 					>R$
 					{{
-						getValuesList.resume.total_entries.toLocaleString('pt-br', {
+						getValuesList.abstract.total_entries.toLocaleString('pt-br', {
 							minimumFractionDigits: 2,
 						})
 					}}</span
@@ -30,7 +30,7 @@
 				<span
 					>R$
 					{{
-						getValuesList.resume.total_outputs.toLocaleString('pt-br', {
+						getValuesList.abstract.total_outputs.toLocaleString('pt-br', {
 							minimumFractionDigits: 2,
 						})
 					}}</span
@@ -55,7 +55,7 @@
 				<span :style="{ color: '#fff' }"
 					>R$
 					{{
-						getValuesList.resume.total.toLocaleString('pt-br', {
+						getValuesList.abstract.total.toLocaleString('pt-br', {
 							minimumFractionDigits: 2,
 						})
 					}}</span
