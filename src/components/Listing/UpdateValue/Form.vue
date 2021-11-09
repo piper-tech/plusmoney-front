@@ -174,7 +174,6 @@ export default {
 		},
 		populateFields() {
 			if (Object.keys(this.item).length === 0) return
-			console.log(this.item, this.form)
 			const arr = Object.keys(this.form)
 			arr.map((item) => {
 				if (item === 'date') {

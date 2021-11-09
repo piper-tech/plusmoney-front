@@ -107,7 +107,6 @@
 						/>
 					</v-menu>
 				</v-col>
-				{{ getMe }}
 			</v-row>
 		</div>
 		<v-card-actions
