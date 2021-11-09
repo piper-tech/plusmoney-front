@@ -1,7 +1,11 @@
 <template>
 	<v-card class="card" width="500px">
-		<Chart v-if="!loading" :chart-data="chartData" :options="options" />
-		<div class="card__lottie" v-if="loading">
+		<Chart
+			v-if="!loading && getValuesList.abstract_by_category.length > 0"
+			:chart-data="chartData"
+			:options="options"
+		/>
+		<div class="card__lottie" v-else>
 			<lottie-animation
 				:loop="true"
 				ref="anim"
