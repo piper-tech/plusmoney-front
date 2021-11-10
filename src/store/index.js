@@ -122,6 +122,14 @@ export default new Vuex.Store({
 			}
 		},
 
+		async deleteValue(_, id) {
+			try {
+				await loadFields.deleteValue(id)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
 		async handleValuesList({ commit }, userId) {
 			try {
 				const { data } = await loadFields.entriesList(userId)

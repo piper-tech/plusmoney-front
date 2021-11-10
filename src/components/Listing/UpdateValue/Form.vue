@@ -114,6 +114,15 @@
 			style="display: flex; justify-content: flex-end"
 		>
 			<v-btn
+				color="#E30000"
+				dark
+				depressed
+				height="45px"
+				width="125px"
+				@click="deleteValue"
+				>Deletar</v-btn
+			>
+			<v-btn
 				color="#508991"
 				dark
 				depressed
@@ -207,6 +216,23 @@ export default {
 					message: 'Valor atualizado com sucesso!',
 				})
 				this.clear()
+				this.$store.dispatch('handleValuesList', this.getMe.id)
+				this.$router.go('-1')
+			} catch (e) {
+				this.$store.dispatch('setSnackbar', {
+					status: true,
+					message: 'Algo deu errado, tente novamente',
+				})
+			}
+		},
+		async deleteValue() {
+			try {
+				await this.$store.dispatch('deleteValue', this.item.id)
+
+				this.$store.dispatch('setSnackbar', {
+					status: true,
+					message: 'Valor excluído com sucesso!',
+				})
 				this.$store.dispatch('handleValuesList', this.getMe.id)
 				this.$router.go('-1')
 			} catch (e) {
