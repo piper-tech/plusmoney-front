@@ -13,7 +13,7 @@
 				Adicionar categoria
 			</v-btn>
 
-			<v-btn
+			<!-- <v-btn
 				outlined
 				depressed
 				color="#E30000"
@@ -23,7 +23,7 @@
 			>
 				<v-icon class="mr-2">delete</v-icon>
 				Excluir categoria
-			</v-btn>
+			</v-btn> -->
 		</div>
 	</div>
 </template>

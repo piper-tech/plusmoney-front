@@ -12,6 +12,7 @@ export default new Vuex.Store({
 		valuesList: {},
 		user: {},
 		categoriesList: [],
+		category: {},
 	},
 
 	mutations: {
@@ -37,6 +38,9 @@ export default new Vuex.Store({
 		setClearUser(state) {
 			state.user = {}
 		},
+		setCategory(state, data) {
+			state.category = data
+		},
 	},
 
 	getters: {
@@ -46,6 +50,7 @@ export default new Vuex.Store({
 		getValuesList: (state) => state.valuesList,
 		getMe: (state) => state.user,
 		getCategoriesList: (state) => state.categoriesList,
+		getCategory: (state) => state.category,
 	},
 
 	actions: {
@@ -154,6 +159,18 @@ export default new Vuex.Store({
 			} catch (e) {
 				console.log(e)
 			}
+		},
+
+		async updateCategory(_, { id, payload }) {
+			try {
+				await loadFields.updateCategory(id, payload)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		getCategory({ commit }, category) {
+			commit('setCategory', category)
 		},
 
 		clearValuesList({ commit }) {
