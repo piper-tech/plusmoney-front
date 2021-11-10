@@ -66,6 +66,11 @@ export default {
 			return this.getValuesList.entries
 		},
 	},
+	mounted() {
+		if (this.getMe.id) {
+			this.$store.dispatch('handleValuesList', this.getMe.id)
+		}
+	},
 	watch: {
 		getMe() {
 			if (this.getMe.id) {
