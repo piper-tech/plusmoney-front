@@ -9,6 +9,14 @@ export default {
 			this.$_data.$_chart.update()
 		},
 	},
+	watch: {
+		'chartData.datasets[0].data': {
+			deep: true,
+			handler() {
+				console.log('mudou')
+			},
+		},
+	},
 	mounted() {
 		this.renderChart(this.chartData, this.options)
 	},

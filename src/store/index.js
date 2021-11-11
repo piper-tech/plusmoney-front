@@ -169,6 +169,14 @@ export default new Vuex.Store({
 			}
 		},
 
+		async deleteCategory(_, id) {
+			try {
+				await loadFields.deleteCategory(id)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
 		getCategory({ commit }, category) {
 			commit('setCategory', category)
 		},

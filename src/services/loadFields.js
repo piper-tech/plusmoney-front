@@ -17,4 +17,5 @@ export default {
 	categoriesList: (userId) => Http.get(`categories?userId=${userId}`),
 	registerCategory: (params) => Http.post('categories', params),
 	updateCategory: (id, params) => Http.put(`categories/${id}`, params),
+	deleteCategory: (id) => Http.delete(`categories/${id}`),
 }

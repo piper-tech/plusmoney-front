@@ -27,7 +27,13 @@
 				class="form__actions pr-0 mt-3"
 				style="display: flex; justify-content: flex-end"
 			>
-				<v-btn color="#E30000" dark depressed height="45px" width="125px"
+				<v-btn
+					color="#E30000"
+					dark
+					depressed
+					height="45px"
+					width="125px"
+					@click="deleteCategory"
 					>Deletar</v-btn
 				>
 				<v-btn
@@ -103,6 +109,23 @@ export default {
 					message: 'Algo deu errado, tente novamente',
 				})
 				console.log(e)
+			}
+		},
+		async deleteCategory() {
+			try {
+				await this.$store.dispatch('deleteCategory', this.category.id)
+
+				this.$store.dispatch('setSnackbar', {
+					status: true,
+					message: 'Categoria excluída com sucesso!',
+				})
+				this.close()
+				this.$store.dispatch('categoryList', this.getMe.id)
+			} catch (e) {
+				this.$store.dispatch('setSnackbar', {
+					status: true,
+					message: 'Algo deu errado, tente novamente',
+				})
 			}
 		},
 	},

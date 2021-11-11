@@ -40,6 +40,7 @@ export default {
 	},
 	watch: {
 		getValuesList() {
+			this.loading = true
 			this.renderChart()
 		},
 	},

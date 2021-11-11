@@ -73,9 +73,6 @@ export default {
 			getMe: 'getMe',
 			getCategoriesList: 'getCategoriesList',
 		}),
-		// computedDateFormatted() {
-		// 	return this.formatDate(this.date)
-		// },
 	},
 	methods: {
 		updateCategory(item) {
