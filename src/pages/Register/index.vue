@@ -140,14 +140,8 @@ export default {
 					email: this.form.email,
 					password: this.form.password,
 				}
-				// await this.$store.dispatch('registerUser', obj)
-				// const objLogup = {
-				// 	email: this.form.email,
-				// 	password: this.form.password,
-				// }
 
 				if (this.form.password === this.form.confirmPassword) {
-					// await this.$store.dispatch('login', objLogup)
 					await this.$store.dispatch('registerUser', obj)
 					this.$router.push('/listagem')
 				} else {
