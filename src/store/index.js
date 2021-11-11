@@ -69,22 +69,12 @@ export default new Vuex.Store({
 			}
 		},
 
-		async registerUser({ dispatch }, params) {
+		async registerUser(_, params) {
 			try {
-				const { data } = await loadFields
-					.registerUser(params)
-					.then((response) => {
-						if (response.status === 200 || response.status === 201) {
-							dispatch(
-								'setSnackbar',
-								{
-									status: true,
-									message: 'Usuário cadastrado com sucesso!',
-								},
-								{ root: true }
-							)
-						}
-					})
+				const { data } = await loadFields.registerUser(params)
+
+				window.localStorage.setItem('Authorization', data.accessToken)
+
 				console.log(data)
 				return data
 			} catch (e) {
