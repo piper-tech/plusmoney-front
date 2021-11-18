@@ -117,7 +117,6 @@ export default {
 			return this.dates
 				.map((item) => {
 					item = format(parseISO(item), 'dd/MM/yyyy')
-					console.log(item, 'oi')
 					return item
 				})
 				.join('~')
