@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import loadFields from '@/services/loadFields'
+import { createQueryString } from '@/utils/queryString'
 
 Vue.use(Vuex)
 
@@ -125,9 +126,11 @@ export default new Vuex.Store({
 			}
 		},
 
-		async handleValuesList({ commit }, userId) {
+		async handleValuesList({ commit }, query) {
 			try {
-				const { data } = await loadFields.entriesList(userId)
+				const { data } = await loadFields.entriesList(
+					createQueryString({ query })
+				)
 				commit('setValuesList', data)
 			} catch (e) {
 				console.log(e)

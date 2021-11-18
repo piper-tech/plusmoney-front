@@ -74,6 +74,7 @@
 						item-text="description"
 					/>
 				</v-col>
+				{{ date }}
 				<v-col md="6">
 					<v-menu
 						v-model="menu"
@@ -127,7 +128,6 @@
 </template>
 
 <script>
-import { format, parseISO } from 'date-fns'
 import { mapGetters } from 'vuex'
 export default {
 	data: () => ({
@@ -172,7 +172,7 @@ export default {
 					description: this.description,
 					value: this.type === 'entry' ? this.value : '-' + this.value,
 					categoryId: this.category,
-					date: format(parseISO(this.date), 'dd/MM/yyyy') || this.currentDate,
+					date: this.date || this.currentDate,
 				}
 				await this.$store.dispatch('registerValue', obj)
 				this.$store.dispatch('setSnackbar', {
@@ -180,7 +180,7 @@ export default {
 					message: 'Valor cadastrado com sucesso!',
 				})
 				this.clear()
-				this.$store.dispatch('handleValuesList', this.getMe.id)
+				this.$store.dispatch('handleValuesList', { userId: this.getMe.id })
 				this.$router.go('-1')
 			} catch (e) {
 				this.$store.dispatch('setSnackbar', {

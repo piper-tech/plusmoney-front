@@ -177,23 +177,18 @@ export default {
 	},
 	methods: {
 		formatDate(date) {
+			let newDate = date
 			if (!date) return null
 
-			return format(parseISO(date), 'dd/MM/yyyy')
+			if (date.includes('T')) newDate = date.split('T')[0]
+
+			return format(parseISO(newDate), 'dd/MM/yyyy')
 		},
 		populateFields() {
 			if (Object.keys(this.item).length === 0) return
 			const arr = Object.keys(this.form)
 			arr.map((item) => {
-				if (item === 'date') {
-					const [dia, mes, ano] = this.item[item].split('/')
-					this.form.date = format(
-						parseISO(`${ano}-${mes}-${dia}`),
-						'yyyy-MM-dd'
-					)
-				} else {
-					this.form[item] = this.item[item]
-				}
+				this.form[item] = this.item[item]
 			})
 		},
 		async updateValue() {
@@ -203,7 +198,7 @@ export default {
 					description: this.form.description,
 					value: this.form.value,
 					categoryId: this.form.category.id,
-					date: format(parseISO(this.form.date), 'dd/MM/yyyy'),
+					date: this.form.date,
 				}
 
 				await this.$store.dispatch('updateValue', {
@@ -216,7 +211,7 @@ export default {
 					message: 'Valor atualizado com sucesso!',
 				})
 				this.clear()
-				this.$store.dispatch('handleValuesList', this.getMe.id)
+				this.$store.dispatch('handleValuesList', { userId: this.getMe.id })
 				this.$router.go('-1')
 			} catch (e) {
 				this.$store.dispatch('setSnackbar', {
@@ -233,7 +228,7 @@ export default {
 					status: true,
 					message: 'Valor excluído com sucesso!',
 				})
-				this.$store.dispatch('handleValuesList', this.getMe.id)
+				this.$store.dispatch('handleValuesList', { userId: this.getMe.id })
 				this.$router.go('-1')
 			} catch (e) {
 				this.$store.dispatch('setSnackbar', {

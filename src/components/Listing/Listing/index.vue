@@ -1,5 +1,46 @@
 <template>
 	<v-card class="card" width="530px">
+		<v-row>
+			<v-col md="12" class="py-6 px-6">
+				<v-menu
+					v-model="menu"
+					:close-on-content-click="false"
+					:close-on-click="false"
+					transition="scale-transition"
+					offset-y
+					max-width="290px"
+					min-width="auto"
+				>
+					<template v-slot:activator="{ on, attrs }">
+						<v-text-field
+							color="#508991"
+							v-model="dateRangeText"
+							label="Filtre pela data"
+							persistent-hint
+							hide-details
+							outlined
+							clearable
+							@click:clear="clearDates"
+							prepend-inner-icon="mdi-calendar"
+							readonly
+							v-bind="attrs"
+							v-on="on"
+						/>
+					</template>
+					<v-date-picker
+						selected-items-text="2 Selecionados"
+						v-model="dates"
+						color="#508991"
+						locale="pt"
+						range
+					>
+						<v-spacer />
+						<v-btn text color="#508991" @click="close"> Cancelar </v-btn>
+						<v-btn text color="#508991" @click="saveDate"> Salvar </v-btn>
+					</v-date-picker>
+				</v-menu>
+			</v-col>
+		</v-row>
 		<v-list class="card__list" v-if="getValuesList.entries.length > 0">
 			<v-list-item
 				v-for="(item, index) in items"
@@ -8,7 +49,9 @@
 				@click="editItem(item)"
 			>
 				<div class="card__list__item__date">
-					<span class="card__list__item__date__text">{{ item.date }}</span>
+					<span class="card__list__item__date__text">{{
+						formatDate(item.date)
+					}}</span>
 				</div>
 				<div class="card__list__item__content">
 					<div class="card__list__item__content__box">
@@ -47,11 +90,16 @@
 </template>
 
 <script>
+import { format, parseISO } from 'date-fns'
 import LottieAnimation from 'lottie-web-vue'
 import { mapGetters } from 'vuex'
 export default {
 	data: () => ({
+		format,
+		parseISO,
 		item: {},
+		dates: [],
+		menu: false,
 	}),
 	components: {
 		LottieAnimation,
@@ -65,16 +113,25 @@ export default {
 			if (!this.getValuesList.entries) return []
 			return this.getValuesList.entries
 		},
+		dateRangeText() {
+			return this.dates
+				.map((item) => {
+					item = format(parseISO(item), 'dd/MM/yyyy')
+					console.log(item, 'oi')
+					return item
+				})
+				.join('~')
+		},
 	},
 	mounted() {
 		if (this.getMe.id) {
-			this.$store.dispatch('handleValuesList', this.getMe.id)
+			this.$store.dispatch('handleValuesList', { userId: this.getMe.id })
 		}
 	},
 	watch: {
 		getMe() {
 			if (this.getMe.id) {
-				this.$store.dispatch('handleValuesList', this.getMe.id)
+				this.$store.dispatch('handleValuesList', { userId: this.getMe.id })
 			}
 		},
 	},
@@ -88,6 +145,32 @@ export default {
 					item: this.item,
 				},
 			})
+		},
+		close() {
+			this.dates = []
+			this.menu = false
+		},
+		saveDate() {
+			this.menu = false
+			this.$store.dispatch('handleValuesList', {
+				userId: this.getMe.id,
+				startDate: this.dates[0],
+				endDate: this.dates[1],
+			})
+		},
+		clearDates() {
+			this.dates = []
+			this.$store.dispatch('handleValuesList', {
+				userId: this.getMe.id,
+			})
+		},
+		formatDate(date) {
+			let newDate = date
+			if (!date) return null
+
+			if (date.includes('T')) newDate = date.split('T')[0]
+
+			return format(parseISO(newDate), 'dd/MM/yyyy')
 		},
 	},
 }
@@ -111,6 +194,7 @@ export default {
 	}
 	&__list {
 		width: 100%;
+		/* margin-top: 10px; */
 		&__item {
 			width: 100%;
 			display: flex;
