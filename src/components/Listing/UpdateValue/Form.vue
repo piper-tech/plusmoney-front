@@ -60,6 +60,7 @@
 				</v-col>
 			</v-row>
 			<v-row>
+				{{ form.category }}
 				<v-col md="6">
 					<v-autocomplete
 						label="Categorias"
@@ -197,7 +198,7 @@ export default {
 					userId: this.getMe.id,
 					description: this.form.description,
 					value: this.form.value,
-					categoryId: this.form.category.id,
+					categoryId: this.form.category,
 					date: this.form.date.split('T')[0],
 				}
 
