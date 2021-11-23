@@ -74,7 +74,6 @@
 						item-text="description"
 					/>
 				</v-col>
-				{{ date }}
 				<v-col md="6">
 					<v-menu
 						v-model="menu"
