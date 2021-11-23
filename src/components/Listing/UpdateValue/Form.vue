@@ -60,7 +60,6 @@
 				</v-col>
 			</v-row>
 			<v-row>
-				{{ form.category }}
 				<v-col md="6">
 					<v-autocomplete
 						label="Categorias"
