@@ -150,12 +150,24 @@ export default {
 			this.menu = false
 		},
 		saveDate() {
-			this.menu = false
-			this.$store.dispatch('handleValuesList', {
-				userId: this.getMe.id,
-				startDate: this.dates[0],
-				endDate: this.dates[1],
-			})
+			try {
+				if (this.dates[1] > this.dates[0]) {
+					this.menu = false
+					this.$store.dispatch('handleValuesList', {
+						userId: this.getMe.id,
+						startDate: this.dates[0],
+						endDate: this.dates[1],
+					})
+				} else {
+					this.$store.dispatch('setSnackbar', {
+						status: true,
+						message: 'Data inicial precisa ser maior que a data final.',
+					})
+					this.dates = null
+				}
+			} catch (e) {
+				console.error(e)
+			}
 		},
 		clearDates() {
 			this.dates = []
