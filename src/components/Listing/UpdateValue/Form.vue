@@ -198,7 +198,7 @@ export default {
 					description: this.form.description,
 					value: this.form.value,
 					categoryId: this.form.category.id,
-					date: this.form.date,
+					date: this.form.date.split('T')[0],
 				}
 
 				await this.$store.dispatch('updateValue', {
