@@ -197,7 +197,7 @@ export default {
 					userId: this.getMe.id,
 					description: this.form.description,
 					value: this.form.value,
-					categoryId: this.form.category,
+					categoryId: this.form.category.id || this.form.category,
 					date: this.form.date,
 				}
 
