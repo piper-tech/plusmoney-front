@@ -1,12 +1,185 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import modules from "./modules";
+import Vue from 'vue'
+import Vuex from 'vuex'
+import loadFields from '@/services/loadFields'
+import { createQueryString } from '@/utils/queryString'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules,
-});
+	state: {
+		snackbar: false,
+		snackbarMsg: '',
+		users: {},
+		valuesList: {},
+		user: {},
+		categoriesList: [],
+		category: {},
+	},
+
+	mutations: {
+		setSnackbar: (state, { status, message }) => {
+			state.snackbar = status
+			state.snackbarMsg = message
+		},
+		loadUsers(state, data) {
+			state.users = data
+		},
+		setValuesList(state, data) {
+			state.valuesList = data
+		},
+		setMe(state, data) {
+			state.user = data
+		},
+		setCategoriesList(state, data) {
+			state.categoriesList = data
+		},
+		setClearValuesList(state) {
+			state.valuesList = {}
+		},
+		setClearUser(state) {
+			state.user = {}
+		},
+		setCategory(state, data) {
+			state.category = data
+		},
+	},
+
+	getters: {
+		getSnackbar: (state) => state.snackbar,
+		getSnackbarMsg: (state) => state.snackbarMsg,
+		getLoadUsers: (state) => state.users,
+		getValuesList: (state) => state.valuesList,
+		getMe: (state) => state.user,
+		getCategoriesList: (state) => state.categoriesList,
+		getCategory: (state) => state.category,
+	},
+
+	actions: {
+		setSnackbar({ commit }, data) {
+			commit('setSnackbar', data)
+		},
+
+		async login({ dispatch }, params) {
+			try {
+				dispatch('clearValuesList', { root: true })
+				const { data } = await loadFields.login(params)
+				window.localStorage.setItem('Authorization', data.accessToken)
+				return data
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async registerUser(_, params) {
+			try {
+				const { data } = await loadFields.registerUser(params)
+
+				window.localStorage.setItem('Authorization', data.accessToken)
+
+				console.log(data)
+				return data
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async me({ commit }) {
+			try {
+				const { data } = await loadFields.me()
+				commit('setMe', data)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async loadUsers({ commit }, email) {
+			try {
+				const { data } = await loadFields.loadUsers(email)
+				commit('loadUsers', data)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async registerValue(_, params) {
+			try {
+				await loadFields.registerValue(params)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async updateValue(_, { id, payload }) {
+			try {
+				console.log(id, payload, 'action')
+				await loadFields.updateValue(id, payload)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async deleteValue(_, id) {
+			try {
+				await loadFields.deleteValue(id)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async handleValuesList({ commit }, query) {
+			try {
+				const { data } = await loadFields.entriesList(
+					createQueryString({ query })
+				)
+				commit('setValuesList', data)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async categoryList({ commit }, userId) {
+			try {
+				const { data } = await loadFields.categoriesList(userId)
+				commit('setCategoriesList', data)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async registerCategory(_, params) {
+			try {
+				await loadFields.registerCategory(params)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async updateCategory(_, { id, payload }) {
+			try {
+				await loadFields.updateCategory(id, payload)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		async deleteCategory(_, id) {
+			try {
+				await loadFields.deleteCategory(id)
+			} catch (e) {
+				console.log(e)
+			}
+		},
+
+		getCategory({ commit }, category) {
+			commit('setCategory', category)
+		},
+
+		clearValuesList({ commit }) {
+			commit('setClearValuesList')
+		},
+
+		clearUser({ commit }) {
+			commit('setClearUser')
+		},
+	},
+})
