@@ -19,30 +19,33 @@
 							color="#508991"
 							hide-details
 							v-model="form.description"
+							:disabled="noCategory"
 						/>
 					</v-col>
 				</v-row>
 			</div>
 			<v-card-actions
-				class="form__actions pr-0 mt-3"
+				class="dialog__card__actions pr-0 mt-3"
 				style="display: flex; justify-content: flex-end"
 			>
 				<v-btn
 					color="#E30000"
-					dark
 					depressed
 					height="45px"
 					width="125px"
 					@click="deleteCategory"
+					:disabled="noCategory"
+					class="dialog__card__actions__button"
 					>Deletar</v-btn
 				>
 				<v-btn
 					color="#508991"
-					dark
 					depressed
 					height="45px"
 					width="125px"
 					@click="updateCategory"
+					:disabled="noCategory"
+					class="dialog__card__actions__button"
 					>Editar</v-btn
 				>
 			</v-card-actions>
@@ -69,6 +72,13 @@ export default {
 
 	computed: {
 		...mapGetters({ getMe: 'getMe', category: 'getCategory' }),
+		noCategory() {
+			if (this.category.description === 'Não categorizado') {
+				return true
+			} else {
+				return false
+			}
+		},
 	},
 	watch: {
 		category: {
@@ -141,6 +151,11 @@ export default {
 		&__close {
 			display: flex;
 			justify-content: flex-end;
+		}
+		&__actions {
+			&__button {
+				color: #fff !important;
+			}
 		}
 	}
 }
