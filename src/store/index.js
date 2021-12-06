@@ -22,7 +22,9 @@ export default new Vuex.Store({
 			state.snackbar = status
 			state.snackbarMsg = message
 		},
-		setOverlay: (state, status) => set((state.overlay = status)),
+		setOverlay(state, status) {
+			state.overlay = status
+		},
 		loadUsers(state, data) {
 			state.users = data
 		},
@@ -74,7 +76,7 @@ export default new Vuex.Store({
 				window.localStorage.setItem('Authorization', data.accessToken)
 				return data
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 			} finally {
 				dispatch('setOverlay', true, { root: false })
 			}
@@ -87,7 +89,7 @@ export default new Vuex.Store({
 				window.localStorage.setItem('Authorization', data.accessToken)
 				return data
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 			} finally {
 				dispatch('setOverlay', true, { root: false })
 			}
@@ -99,7 +101,7 @@ export default new Vuex.Store({
 				const { data } = await loadFields.me()
 				commit('setMe', data)
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 			} finally {
 				dispatch('setOverlay', true, { root: false })
 			}
@@ -110,7 +112,7 @@ export default new Vuex.Store({
 				const { data } = await loadFields.loadUsers(email)
 				commit('loadUsers', data)
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 			}
 		},
 
@@ -119,7 +121,7 @@ export default new Vuex.Store({
 			try {
 				await loadFields.registerValue(params)
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 			} finally {
 				dispatch('setOverlay', true, { root: false })
 			}
@@ -131,7 +133,7 @@ export default new Vuex.Store({
 				console.log(id, payload, 'action')
 				await loadFields.updateValue(id, payload)
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 			} finally {
 				dispatch('setOverlay', true, { root: false })
 			}
@@ -142,7 +144,7 @@ export default new Vuex.Store({
 			try {
 				await loadFields.deleteValue(id)
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 			} finally {
 				dispatch('setOverlay', true, { root: false })
 			}
@@ -155,7 +157,7 @@ export default new Vuex.Store({
 				)
 				commit('setValuesList', data)
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 			}
 		},
 
@@ -164,7 +166,7 @@ export default new Vuex.Store({
 				const { data } = await loadFields.categoriesList(userId)
 				commit('setCategoriesList', data)
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 			}
 		},
 
@@ -173,7 +175,7 @@ export default new Vuex.Store({
 			try {
 				await loadFields.registerCategory(params)
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 			} finally {
 				dispatch('setOverlay', true, { root: false })
 			}
@@ -184,7 +186,7 @@ export default new Vuex.Store({
 			try {
 				await loadFields.updateCategory(id, payload)
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 			} finally {
 				dispatch('setOverlay', true, { root: false })
 			}
@@ -195,7 +197,7 @@ export default new Vuex.Store({
 			try {
 				await loadFields.deleteCategory(id)
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 			} finally {
 				dispatch('setOverlay', true, { root: false })
 			}
