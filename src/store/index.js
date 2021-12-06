@@ -95,7 +95,7 @@ export default new Vuex.Store({
 			}
 		},
 
-		async me({ commit }) {
+		async me({ dispatch, commit }) {
 			dispatch('setOverlay', true, { root: true })
 			try {
 				const { data } = await loadFields.me()
