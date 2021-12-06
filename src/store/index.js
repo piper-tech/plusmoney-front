@@ -80,7 +80,7 @@ export default new Vuex.Store({
 			}
 		},
 
-		async registerUser(_, params) {
+		async registerUser({ dispatch }, params) {
 			dispatch('setOverlay', true, { root: true })
 			try {
 				const { data } = await loadFields.registerUser(params)
@@ -93,7 +93,7 @@ export default new Vuex.Store({
 			}
 		},
 
-		async me({ commit }) {
+		async me({ dispatch, commit }) {
 			dispatch('setOverlay', true, { root: true })
 			try {
 				const { data } = await loadFields.me()
@@ -114,7 +114,7 @@ export default new Vuex.Store({
 			}
 		},
 
-		async registerValue(_, params) {
+		async registerValue({ dispatch }, params) {
 			dispatch('setOverlay', true, { root: true })
 			try {
 				await loadFields.registerValue(params)
@@ -125,7 +125,7 @@ export default new Vuex.Store({
 			}
 		},
 
-		async updateValue(_, { id, payload }) {
+		async updateValue({ dispatch }, { id, payload }) {
 			dispatch('setOverlay', true, { root: true })
 			try {
 				console.log(id, payload, 'action')
@@ -137,7 +137,7 @@ export default new Vuex.Store({
 			}
 		},
 
-		async deleteValue(_, id) {
+		async deleteValue({ dispatch }, id) {
 			dispatch('setOverlay', true, { root: true })
 			try {
 				await loadFields.deleteValue(id)
@@ -168,7 +168,7 @@ export default new Vuex.Store({
 			}
 		},
 
-		async registerCategory(_, params) {
+		async registerCategory({ dispatch }, params) {
 			dispatch('setOverlay', true, { root: true })
 			try {
 				await loadFields.registerCategory(params)
@@ -179,7 +179,7 @@ export default new Vuex.Store({
 			}
 		},
 
-		async updateCategory(_, { id, payload }) {
+		async updateCategory({ dispatch }, { id, payload }) {
 			dispatch('setOverlay', true, { root: true })
 			try {
 				await loadFields.updateCategory(id, payload)
@@ -190,7 +190,7 @@ export default new Vuex.Store({
 			}
 		},
 
-		async deleteCategory(_, id) {
+		async deleteCategory({ dispatch }, id) {
 			dispatch('setOverlay', true, { root: true })
 			try {
 				await loadFields.deleteCategory(id)
