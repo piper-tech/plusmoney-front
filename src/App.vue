@@ -1,5 +1,8 @@
 <template>
 	<v-app>
+		<v-overlay :value="getOverlay" style="z-index: 9 !important">
+			<v-progress-circular indeterminate color="primary" />
+		</v-overlay>
 		<transition name="page" mode="out-in">
 			<router-view />
 		</transition>
@@ -15,7 +18,7 @@ export default {
 		snackbar: false,
 	}),
 	computed: {
-		...mapGetters(['getSnackbar', 'getSnackbarMsg']),
+		...mapGetters(['getSnackbar', 'getSnackbarMsg', 'getOverlay']),
 	},
 	watch: {
 		getSnackbar() {

@@ -150,7 +150,8 @@ export default {
 			const day = String(date.getDate()).padStart(2, '0')
 			const mounth = String(date.getMonth() + 1).padStart(2, '0')
 			const year = date.getFullYear()
-			const currentDate = day + '/' + mounth + '/' + year
+			// const currentDate = day + '/' + mounth + '/' + year
+			const currentDate = year + '-' + mounth + '-' + day
 			return currentDate
 		},
 	},
