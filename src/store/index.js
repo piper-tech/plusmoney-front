@@ -95,7 +95,7 @@ export default new Vuex.Store({
 			}
 		},
 
-		async me({ dispatch, commit }) {
+		async me({ commit }) {
 			try {
 				const { data } = await loadFields.me()
 				commit('setMe', data)
