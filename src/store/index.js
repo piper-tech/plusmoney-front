@@ -56,7 +56,7 @@ export default new Vuex.Store({
 		getMe: (state) => state.user,
 		getCategoriesList: (state) => state.categoriesList,
 		getCategory: (state) => state.category,
-		getOverlay: (state) => state.overlay,
+		overlay: (state) => state.overlay,
 	},
 
 	actions: {
