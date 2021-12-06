@@ -69,8 +69,8 @@ export default new Vuex.Store({
 		},
 
 		async login({ dispatch }, params) {
-			dispatch('setOverlay', true, { root: true })
 			try {
+				dispatch('setOverlay', true, { root: true })
 				dispatch('clearValuesList', { root: true })
 				const { data } = await loadFields.login(params)
 				window.localStorage.setItem('Authorization', data.accessToken)
@@ -91,13 +91,13 @@ export default new Vuex.Store({
 			} catch (e) {
 				console.error(e)
 			} finally {
-				dispatch('setOverlay', true, { root: false })
+				dispatch('setOverlay', false, { root: false })
 			}
 		},
 
 		async me({ dispatch, commit }) {
-			dispatch('setOverlay', true, { root: true })
 			try {
+				dispatch('setOverlay', true, { root: true })
 				const { data } = await loadFields.me()
 				commit('setMe', data)
 			} catch (e) {
@@ -117,8 +117,8 @@ export default new Vuex.Store({
 		},
 
 		async registerValue({ dispatch }, params) {
-			dispatch('setOverlay', true, { root: true })
 			try {
+				dispatch('setOverlay', true, { root: true })
 				await loadFields.registerValue(params)
 			} catch (e) {
 				console.error(e)
@@ -128,8 +128,8 @@ export default new Vuex.Store({
 		},
 
 		async updateValue({ dispatch }, { id, payload }) {
-			dispatch('setOverlay', true, { root: true })
 			try {
+				dispatch('setOverlay', true, { root: true })
 				console.log(id, payload, 'action')
 				await loadFields.updateValue(id, payload)
 			} catch (e) {
@@ -140,8 +140,8 @@ export default new Vuex.Store({
 		},
 
 		async deleteValue({ dispatch }, id) {
-			dispatch('setOverlay', true, { root: true })
 			try {
+				dispatch('setOverlay', true, { root: true })
 				await loadFields.deleteValue(id)
 			} catch (e) {
 				console.error(e)
@@ -171,8 +171,8 @@ export default new Vuex.Store({
 		},
 
 		async registerCategory({ dispatch }, params) {
-			dispatch('setOverlay', true, { root: true })
 			try {
+				dispatch('setOverlay', true, { root: true })
 				await loadFields.registerCategory(params)
 			} catch (e) {
 				console.error(e)
@@ -182,8 +182,8 @@ export default new Vuex.Store({
 		},
 
 		async updateCategory({ dispatch }, { id, payload }) {
-			dispatch('setOverlay', true, { root: true })
 			try {
+				dispatch('setOverlay', true, { root: true })
 				await loadFields.updateCategory(id, payload)
 			} catch (e) {
 				console.error(e)
@@ -193,8 +193,8 @@ export default new Vuex.Store({
 		},
 
 		async deleteCategory({ dispatch }, id) {
-			dispatch('setOverlay', true, { root: true })
 			try {
+				dispatch('setOverlay', true, { root: true })
 				await loadFields.deleteCategory(id)
 			} catch (e) {
 				console.error(e)
