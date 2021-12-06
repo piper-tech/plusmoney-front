@@ -9,6 +9,7 @@ export default new Vuex.Store({
 	state: {
 		snackbar: false,
 		snackbarMsg: '',
+		overlay: false,
 		users: {},
 		valuesList: {},
 		user: {},
@@ -21,6 +22,7 @@ export default new Vuex.Store({
 			state.snackbar = status
 			state.snackbarMsg = message
 		},
+		setOverlay: (state, status) => set((state.overlay = status)),
 		loadUsers(state, data) {
 			state.users = data
 		},
@@ -52,6 +54,7 @@ export default new Vuex.Store({
 		getMe: (state) => state.user,
 		getCategoriesList: (state) => state.categoriesList,
 		getCategory: (state) => state.category,
+		getOverlay: (state) => state.overlay,
 	},
 
 	actions: {
@@ -59,7 +62,12 @@ export default new Vuex.Store({
 			commit('setSnackbar', data)
 		},
 
+		setOverlay({ commit }, status) {
+			commit('setOverlay', status)
+		},
+
 		async login({ dispatch }, params) {
+			dispatch('setOverlay', true, { root: true })
 			try {
 				dispatch('clearValuesList', { root: true })
 				const { data } = await loadFields.login(params)
@@ -67,28 +75,33 @@ export default new Vuex.Store({
 				return data
 			} catch (e) {
 				console.log(e)
+			} finally {
+				dispatch('setOverlay', true, { root: false })
 			}
 		},
 
 		async registerUser(_, params) {
+			dispatch('setOverlay', true, { root: true })
 			try {
 				const { data } = await loadFields.registerUser(params)
-
 				window.localStorage.setItem('Authorization', data.accessToken)
-
-				console.log(data)
 				return data
 			} catch (e) {
 				console.log(e)
+			} finally {
+				dispatch('setOverlay', true, { root: false })
 			}
 		},
 
 		async me({ commit }) {
+			dispatch('setOverlay', true, { root: true })
 			try {
 				const { data } = await loadFields.me()
 				commit('setMe', data)
 			} catch (e) {
 				console.log(e)
+			} finally {
+				dispatch('setOverlay', true, { root: false })
 			}
 		},
 
@@ -102,27 +115,36 @@ export default new Vuex.Store({
 		},
 
 		async registerValue(_, params) {
+			dispatch('setOverlay', true, { root: true })
 			try {
 				await loadFields.registerValue(params)
 			} catch (e) {
 				console.log(e)
+			} finally {
+				dispatch('setOverlay', true, { root: false })
 			}
 		},
 
 		async updateValue(_, { id, payload }) {
+			dispatch('setOverlay', true, { root: true })
 			try {
 				console.log(id, payload, 'action')
 				await loadFields.updateValue(id, payload)
 			} catch (e) {
 				console.log(e)
+			} finally {
+				dispatch('setOverlay', true, { root: false })
 			}
 		},
 
 		async deleteValue(_, id) {
+			dispatch('setOverlay', true, { root: true })
 			try {
 				await loadFields.deleteValue(id)
 			} catch (e) {
 				console.log(e)
+			} finally {
+				dispatch('setOverlay', true, { root: false })
 			}
 		},
 
@@ -147,26 +169,35 @@ export default new Vuex.Store({
 		},
 
 		async registerCategory(_, params) {
+			dispatch('setOverlay', true, { root: true })
 			try {
 				await loadFields.registerCategory(params)
 			} catch (e) {
 				console.log(e)
+			} finally {
+				dispatch('setOverlay', true, { root: false })
 			}
 		},
 
 		async updateCategory(_, { id, payload }) {
+			dispatch('setOverlay', true, { root: true })
 			try {
 				await loadFields.updateCategory(id, payload)
 			} catch (e) {
 				console.log(e)
+			} finally {
+				dispatch('setOverlay', true, { root: false })
 			}
 		},
 
 		async deleteCategory(_, id) {
+			dispatch('setOverlay', true, { root: true })
 			try {
 				await loadFields.deleteCategory(id)
 			} catch (e) {
 				console.log(e)
+			} finally {
+				dispatch('setOverlay', true, { root: false })
 			}
 		},
 
