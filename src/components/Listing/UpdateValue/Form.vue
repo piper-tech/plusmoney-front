@@ -38,7 +38,7 @@
 						width="100%"
 						height="50px"
 						:class="form.type === 'entry' ? 'active-entry' : ''"
-						@click="form.type = 'entry'"
+						@click="entryValue"
 					>
 						<v-icon class="mr-2">arrow_circle_up</v-icon>
 						Entrada
@@ -52,7 +52,7 @@
 						width="100%"
 						height="50px"
 						:class="form.type === 'output' ? 'active-output' : ''"
-						@click="form.type = 'output'"
+						@click="outputValue"
 					>
 						<v-icon class="mr-2">arrow_circle_down</v-icon>
 						Saída
@@ -190,6 +190,14 @@ export default {
 			arr.map((item) => {
 				this.form[item] = this.item[item]
 			})
+		},
+		entryValue() {
+			this.form.type = 'entry'
+			if (this.form.value < 0) this.form.value = this.form.value * -1
+		},
+		outputValue() {
+			this.form.type = 'output'
+			if (this.form.value > 0) this.form.value = this.form.value * -1
 		},
 		async updateValue() {
 			try {
