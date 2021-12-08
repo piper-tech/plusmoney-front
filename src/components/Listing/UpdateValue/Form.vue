@@ -196,10 +196,7 @@ export default {
 				const payload = {
 					userId: this.getMe.id,
 					description: this.form.description,
-					value:
-						this.form.type === 'output'
-							? '-' + this.form.value
-							: this.form.value,
+					value: this.form.value,
 					categoryId: this.form.category.id || this.form.category,
 					date: this.form.date,
 				}
