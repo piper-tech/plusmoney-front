@@ -38,7 +38,7 @@
 						width="100%"
 						height="50px"
 						:class="type === 'entry' ? 'active-entry' : ''"
-						@click="type = 'entry'"
+						@click="entryValue"
 					>
 						<v-icon class="mr-2">arrow_circle_up</v-icon>
 						Entrada
@@ -52,7 +52,7 @@
 						width="100%"
 						height="50px"
 						:class="type === 'output' ? 'active-output' : ''"
-						@click="type = 'output'"
+						@click="outputValue"
 					>
 						<v-icon class="mr-2">arrow_circle_down</v-icon>
 						Saída
@@ -159,6 +159,14 @@ export default {
 		this.$store.dispatch('categoryList', this.getMe.id)
 	},
 	methods: {
+		entryValue() {
+			this.type = 'entry'
+			if (this.value < 0) this.value = this.value * -1
+		},
+		outputValue() {
+			this.type = 'output'
+			if (this.value > 0) this.value = this.value * -1
+		},
 		formatDate(date) {
 			if (!date) return null
 
