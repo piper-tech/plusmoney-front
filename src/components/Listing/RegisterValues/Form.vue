@@ -178,7 +178,7 @@ export default {
 				const obj = {
 					userId: this.getMe.id,
 					description: this.description,
-					value: this.type === 'entry' ? this.value : '-' + this.value,
+					value: this.value,
 					categoryId: this.category,
 					date: this.date || this.currentDate,
 				}
